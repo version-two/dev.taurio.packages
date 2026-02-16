@@ -1,0 +1,5058 @@
+[
+  {
+    "id": "taurio-fpm",
+    "name": "Taurio FPM",
+    "version": "0.1.0",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "php",
+    "description": "FastCGI process manager for PHP workers",
+    "tags": [
+      "php",
+      "fastcgi",
+      "infrastructure"
+    ],
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/version-two/dev.taurio.fpm/releases/latest/download/taurio-fpm.exe",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\taurio-fpm.exe"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\taurio-fpm.exe"
+      }
+    ],
+    "shims": [],
+    "scripts": [],
+    "dependencies": []
+  },
+  {
+    "id": "php-8.3",
+    "name": "PHP 8.3 (NTS x64)",
+    "version": "8.3.28",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "php",
+    "description": "PHP 8.3 runtime (non-thread-safe, x64)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://windows.php.net/downloads/releases/archives/php-8.3.28-nts-Win32-vs16-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "php",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.exe"
+      },
+      {
+        "name": "php8.3",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.exe"
+      },
+      {
+        "name": "php-cgi",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe"
+      },
+      {
+        "name": "php-cgi8.3",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe"
+      },
+      {
+        "name": "phpdbg",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\phpdbg.exe"
+      },
+      {
+        "name": "pear",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\pear.bat"
+      },
+      {
+        "name": "pecl",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\pecl.bat"
+      }
+    ],
+    "config": {
+      "tool_type": "php_runtime",
+      "app_config": {
+        "version": "8.3",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe",
+        "fcgi_port": 9000,
+        "fcgi_mode": "pool"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.ini",
+          "separator": "=",
+          "comment_prefix": ";",
+          "settings": {
+            "error_reporting": "E_ALL",
+            "display_errors": "On",
+            "display_startup_errors": "On",
+            "log_errors": "On",
+            "error_log": "{{TAURIO_ROOT}}\\data\\logs\\php83-error.log",
+            "memory_limit": "512M",
+            "max_execution_time": "300",
+            "max_input_time": "300",
+            "max_input_vars": "10000",
+            "post_max_size": "256M",
+            "upload_max_filesize": "256M",
+            "max_file_uploads": "50",
+            "date.timezone": "UTC",
+            "realpath_cache_size": "4096K",
+            "realpath_cache_ttl": "600",
+            "opcache.enable": "1",
+            "opcache.memory_consumption": "256",
+            "opcache.interned_strings_buffer": "16",
+            "opcache.max_accelerated_files": "20000",
+            "opcache.validate_timestamps": "1",
+            "opcache.revalidate_freq": "0",
+            "opcache.save_comments": "1",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\ext",
+            "cgi.fix_pathinfo": "1",
+            "session.save_handler": "files",
+            "session.gc_maxlifetime": "1440"
+          },
+          "install_overrides": {
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\ext",
+            "date.timezone": "UTC",
+            "opcache.enable": "1"
+          },
+          "append_lines": [
+            "extension=bz2",
+            "extension=curl",
+            "extension=fileinfo",
+            "extension=gd",
+            "extension=gettext",
+            "extension=intl",
+            "extension=mbstring",
+            "extension=exif",
+            "extension=mysqli",
+            "extension=openssl",
+            "extension=pdo_mysql",
+            "extension=pdo_pgsql",
+            "extension=pdo_sqlite",
+            "extension=pgsql",
+            "extension=soap",
+            "extension=sodium",
+            "extension=sqlite3",
+            "extension=zip"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe",
+        "args": [
+          "-b",
+          "127.0.0.1:9000"
+        ],
+        "label": "Start PHP 8.3 FastCGI"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "fcgi_port",
+          "label": "FastCGI Port",
+          "type": "number",
+          "default": "9000"
+        },
+        {
+          "key": "fcgi_mode",
+          "label": "FastCGI Mode",
+          "type": "select:pool=Pool (multi-worker),fcgi=Single process,off=Off (CLI only)",
+          "default": "pool"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "extensions",
+          "type": "php-extensions",
+          "label": "Extensions"
+        },
+        {
+          "id": "settings",
+          "type": "php-settings",
+          "label": "Settings"
+        },
+        {
+          "id": "xdebug",
+          "type": "php-xdebug",
+          "label": "Xdebug"
+        },
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "php.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.ini",
+            "separator": "=",
+            "comment_prefix": ";"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\php83-error.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "php",
+      "runtime",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [
+        "mysql",
+        "redis"
+      ],
+      "companion_tools": [
+        "composer",
+        "phpstan"
+      ]
+    },
+    "dependencies": [
+      "taurio-fpm"
+    ]
+  },
+  {
+    "id": "php-8.4",
+    "name": "PHP 8.4 (NTS x64)",
+    "version": "8.4.16",
+    "category": "service",
+    "preselect_default": true,
+    "icon": "php",
+    "description": "PHP 8.4 runtime (non-thread-safe, x64)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://windows.php.net/downloads/releases/php-8.4.16-nts-Win32-vs17-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "php8.4",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe"
+      },
+      {
+        "name": "php-cgi8.4",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php-cgi.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "php_runtime",
+      "app_config": {
+        "version": "8.4",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php-cgi.exe",
+        "fcgi_port": 9001,
+        "fcgi_mode": "pool"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.ini",
+          "separator": "=",
+          "comment_prefix": ";",
+          "settings": {
+            "error_reporting": "E_ALL",
+            "display_errors": "On",
+            "display_startup_errors": "On",
+            "log_errors": "On",
+            "error_log": "{{TAURIO_ROOT}}\\data\\logs\\php84-error.log",
+            "memory_limit": "512M",
+            "max_execution_time": "300",
+            "max_input_time": "300",
+            "max_input_vars": "10000",
+            "post_max_size": "256M",
+            "upload_max_filesize": "256M",
+            "max_file_uploads": "50",
+            "date.timezone": "UTC",
+            "realpath_cache_size": "4096K",
+            "realpath_cache_ttl": "600",
+            "opcache.enable": "1",
+            "opcache.memory_consumption": "256",
+            "opcache.interned_strings_buffer": "16",
+            "opcache.max_accelerated_files": "20000",
+            "opcache.validate_timestamps": "1",
+            "opcache.revalidate_freq": "0",
+            "opcache.save_comments": "1",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\ext",
+            "cgi.fix_pathinfo": "1",
+            "session.save_handler": "files",
+            "session.gc_maxlifetime": "1440"
+          },
+          "install_overrides": {
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\ext",
+            "date.timezone": "UTC",
+            "opcache.enable": "1"
+          },
+          "append_lines": [
+            "extension=bz2",
+            "extension=curl",
+            "extension=fileinfo",
+            "extension=gd",
+            "extension=gettext",
+            "extension=intl",
+            "extension=mbstring",
+            "extension=exif",
+            "extension=mysqli",
+            "extension=openssl",
+            "extension=pdo_mysql",
+            "extension=pdo_pgsql",
+            "extension=pdo_sqlite",
+            "extension=pgsql",
+            "extension=soap",
+            "extension=sodium",
+            "extension=sqlite3",
+            "extension=zip"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php-cgi.exe",
+        "args": [
+          "-b",
+          "127.0.0.1:9001"
+        ],
+        "label": "Start PHP 8.4 FastCGI"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "fcgi_port",
+          "label": "FastCGI Port",
+          "type": "number",
+          "default": "9001"
+        },
+        {
+          "key": "fcgi_mode",
+          "label": "FastCGI Mode",
+          "type": "select:pool=Pool (multi-worker),fcgi=Single process,off=Off (CLI only)",
+          "default": "pool"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "extensions",
+          "type": "php-extensions",
+          "label": "Extensions"
+        },
+        {
+          "id": "settings",
+          "type": "php-settings",
+          "label": "Settings"
+        },
+        {
+          "id": "xdebug",
+          "type": "php-xdebug",
+          "label": "Xdebug"
+        },
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "php.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.ini",
+            "separator": "=",
+            "comment_prefix": ";"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\php84-error.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "php",
+      "runtime",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [
+        "mysql",
+        "redis"
+      ],
+      "companion_tools": [
+        "composer",
+        "phpstan"
+      ]
+    },
+    "dependencies": [
+      "taurio-fpm"
+    ]
+  },
+  {
+    "id": "php-8.5",
+    "name": "PHP 8.5 (NTS x64)",
+    "version": "8.5.1",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "php",
+    "description": "PHP 8.5 runtime (non-thread-safe, x64)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://windows.php.net/downloads/releases/php-8.5.1-nts-Win32-vs17-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "php",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.exe"
+      },
+      {
+        "name": "php8.5",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.exe"
+      },
+      {
+        "name": "php-cgi",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe"
+      },
+      {
+        "name": "php-cgi8.5",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe"
+      },
+      {
+        "name": "phpdbg",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\phpdbg.exe"
+      },
+      {
+        "name": "pear",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\pear.bat"
+      },
+      {
+        "name": "pecl",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\pecl.bat"
+      }
+    ],
+    "config": {
+      "tool_type": "php_runtime",
+      "app_config": {
+        "version": "8.3",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe",
+        "fcgi_port": 9004,
+        "fcgi_mode": "pool"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.ini",
+          "separator": "=",
+          "comment_prefix": ";",
+          "settings": {
+            "error_reporting": "E_ALL",
+            "display_errors": "On",
+            "display_startup_errors": "On",
+            "log_errors": "On",
+            "error_log": "{{TAURIO_ROOT}}\\data\\logs\\php85-error.log",
+            "memory_limit": "512M",
+            "max_execution_time": "300",
+            "max_input_time": "300",
+            "max_input_vars": "10000",
+            "post_max_size": "256M",
+            "upload_max_filesize": "256M",
+            "max_file_uploads": "50",
+            "date.timezone": "UTC",
+            "realpath_cache_size": "4096K",
+            "realpath_cache_ttl": "600",
+            "opcache.enable": "1",
+            "opcache.memory_consumption": "256",
+            "opcache.interned_strings_buffer": "16",
+            "opcache.max_accelerated_files": "20000",
+            "opcache.validate_timestamps": "1",
+            "opcache.revalidate_freq": "0",
+            "opcache.save_comments": "1",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\ext",
+            "cgi.fix_pathinfo": "1",
+            "session.save_handler": "files",
+            "session.gc_maxlifetime": "1440"
+          },
+          "install_overrides": {
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\ext",
+            "date.timezone": "UTC",
+            "opcache.enable": "1"
+          },
+          "append_lines": [
+            "extension=bz2",
+            "extension=curl",
+            "extension=fileinfo",
+            "extension=gd",
+            "extension=gettext",
+            "extension=intl",
+            "extension=mbstring",
+            "extension=exif",
+            "extension=mysqli",
+            "extension=openssl",
+            "extension=pdo_mysql",
+            "extension=pdo_pgsql",
+            "extension=pdo_sqlite",
+            "extension=pgsql",
+            "extension=soap",
+            "extension=sodium",
+            "extension=sqlite3",
+            "extension=zip"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe",
+        "args": [
+          "-b",
+          "127.0.0.1:9004"
+        ],
+        "label": "Start PHP 8.5 FastCGI"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "fcgi_port",
+          "label": "FastCGI Port",
+          "type": "number",
+          "default": "9004"
+        },
+        {
+          "key": "fcgi_mode",
+          "label": "FastCGI Mode",
+          "type": "select:pool=Pool (multi-worker),fcgi=Single process,off=Off (CLI only)",
+          "default": "pool"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "extensions",
+          "type": "php-extensions",
+          "label": "Extensions"
+        },
+        {
+          "id": "settings",
+          "type": "php-settings",
+          "label": "Settings"
+        },
+        {
+          "id": "xdebug",
+          "type": "php-xdebug",
+          "label": "Xdebug"
+        },
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "php.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.ini",
+            "separator": "=",
+            "comment_prefix": ";"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\php85-error.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "php",
+      "runtime",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [
+        "mysql",
+        "redis"
+      ],
+      "companion_tools": [
+        "composer",
+        "phpstan"
+      ]
+    },
+    "dependencies": [
+      "taurio-fpm"
+    ]
+  },
+  {
+    "id": "php-7.4",
+    "name": "PHP 7.4 (NTS x64)",
+    "version": "7.4.33",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "php",
+    "description": "PHP 7.4 runtime (non-thread-safe, x64)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://windows.php.net/downloads/releases/archives/php-7.4.33-nts-Win32-vc15-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "php",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.exe"
+      },
+      {
+        "name": "php7.4",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.exe"
+      },
+      {
+        "name": "php-cgi",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe"
+      },
+      {
+        "name": "php-cgi7.4",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe"
+      },
+      {
+        "name": "phpdbg",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\phpdbg.exe"
+      },
+      {
+        "name": "pear",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\pear.bat"
+      },
+      {
+        "name": "pecl",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\pecl.bat"
+      }
+    ],
+    "config": {
+      "tool_type": "php_runtime",
+      "app_config": {
+        "version": "8.3",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe",
+        "fcgi_port": 9003,
+        "fcgi_mode": "pool"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.ini",
+          "separator": "=",
+          "comment_prefix": ";",
+          "settings": {
+            "error_reporting": "E_ALL",
+            "display_errors": "On",
+            "display_startup_errors": "On",
+            "log_errors": "On",
+            "error_log": "{{TAURIO_ROOT}}\\data\\logs\\php74-error.log",
+            "memory_limit": "512M",
+            "max_execution_time": "300",
+            "max_input_time": "300",
+            "max_input_vars": "10000",
+            "post_max_size": "256M",
+            "upload_max_filesize": "256M",
+            "max_file_uploads": "50",
+            "date.timezone": "UTC",
+            "realpath_cache_size": "4096K",
+            "realpath_cache_ttl": "600",
+            "opcache.enable": "1",
+            "opcache.memory_consumption": "256",
+            "opcache.interned_strings_buffer": "16",
+            "opcache.max_accelerated_files": "20000",
+            "opcache.validate_timestamps": "1",
+            "opcache.revalidate_freq": "0",
+            "opcache.save_comments": "1",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\ext",
+            "cgi.fix_pathinfo": "1",
+            "session.save_handler": "files",
+            "session.gc_maxlifetime": "1440"
+          },
+          "install_overrides": {
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\ext",
+            "date.timezone": "UTC",
+            "opcache.enable": "1"
+          },
+          "append_lines": [
+            "extension=bz2",
+            "extension=curl",
+            "extension=fileinfo",
+            "extension=gd",
+            "extension=gettext",
+            "extension=intl",
+            "extension=mbstring",
+            "extension=exif",
+            "extension=mysqli",
+            "extension=openssl",
+            "extension=pdo_mysql",
+            "extension=pdo_pgsql",
+            "extension=pdo_sqlite",
+            "extension=pgsql",
+            "extension=soap",
+            "extension=sodium",
+            "extension=sqlite3",
+            "extension=zip"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe",
+        "args": [
+          "-b",
+          "127.0.0.1:9003"
+        ],
+        "label": "Start PHP 7.4 FastCGI"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "fcgi_port",
+          "label": "FastCGI Port",
+          "type": "number",
+          "default": "9003"
+        },
+        {
+          "key": "fcgi_mode",
+          "label": "FastCGI Mode",
+          "type": "select:pool=Pool (multi-worker),fcgi=Single process,off=Off (CLI only)",
+          "default": "pool"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "extensions",
+          "type": "php-extensions",
+          "label": "Extensions"
+        },
+        {
+          "id": "settings",
+          "type": "php-settings",
+          "label": "Settings"
+        },
+        {
+          "id": "xdebug",
+          "type": "php-xdebug",
+          "label": "Xdebug"
+        },
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "php.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.ini",
+            "separator": "=",
+            "comment_prefix": ";"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\php74-error.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "php",
+      "runtime",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [
+        "mysql",
+        "redis"
+      ],
+      "companion_tools": [
+        "composer",
+        "phpstan"
+      ]
+    },
+    "dependencies": [
+      "taurio-fpm"
+    ]
+  },
+  {
+    "id": "php-7.3",
+    "name": "PHP 7.3 (NTS x64)",
+    "version": "7.3.33",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "php",
+    "description": "PHP 7.3 runtime (non-thread-safe, x64)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://windows.php.net/downloads/releases/archives/php-7.3.33-nts-Win32-VC15-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "php",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.exe"
+      },
+      {
+        "name": "php7.3",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.exe"
+      },
+      {
+        "name": "php-cgi",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe"
+      },
+      {
+        "name": "php-cgi7.3",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe"
+      },
+      {
+        "name": "phpdbg",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\phpdbg.exe"
+      },
+      {
+        "name": "pear",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\pear.bat"
+      },
+      {
+        "name": "pecl",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\pecl.bat"
+      }
+    ],
+    "config": {
+      "tool_type": "php_runtime",
+      "app_config": {
+        "version": "8.3",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe",
+        "fcgi_port": 9002,
+        "fcgi_mode": "pool"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.ini",
+          "separator": "=",
+          "comment_prefix": ";",
+          "settings": {
+            "error_reporting": "E_ALL",
+            "display_errors": "On",
+            "display_startup_errors": "On",
+            "log_errors": "On",
+            "error_log": "{{TAURIO_ROOT}}\\data\\logs\\php73-error.log",
+            "memory_limit": "512M",
+            "max_execution_time": "300",
+            "max_input_time": "300",
+            "max_input_vars": "10000",
+            "post_max_size": "256M",
+            "upload_max_filesize": "256M",
+            "max_file_uploads": "50",
+            "date.timezone": "UTC",
+            "realpath_cache_size": "4096K",
+            "realpath_cache_ttl": "600",
+            "opcache.enable": "1",
+            "opcache.memory_consumption": "256",
+            "opcache.interned_strings_buffer": "16",
+            "opcache.max_accelerated_files": "20000",
+            "opcache.validate_timestamps": "1",
+            "opcache.revalidate_freq": "0",
+            "opcache.save_comments": "1",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\ext",
+            "cgi.fix_pathinfo": "1",
+            "session.save_handler": "files",
+            "session.gc_maxlifetime": "1440"
+          },
+          "install_overrides": {
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\ext",
+            "date.timezone": "UTC",
+            "opcache.enable": "1"
+          },
+          "append_lines": [
+            "extension=bz2",
+            "extension=curl",
+            "extension=fileinfo",
+            "extension=gd",
+            "extension=gettext",
+            "extension=intl",
+            "extension=mbstring",
+            "extension=exif",
+            "extension=mysqli",
+            "extension=openssl",
+            "extension=pdo_mysql",
+            "extension=pdo_pgsql",
+            "extension=pdo_sqlite",
+            "extension=pgsql",
+            "extension=soap",
+            "extension=sodium",
+            "extension=sqlite3",
+            "extension=zip"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe",
+        "args": [
+          "-b",
+          "127.0.0.1:9002"
+        ],
+        "label": "Start PHP 7.3 FastCGI"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "fcgi_port",
+          "label": "FastCGI Port",
+          "type": "number",
+          "default": "9002"
+        },
+        {
+          "key": "fcgi_mode",
+          "label": "FastCGI Mode",
+          "type": "select:pool=Pool (multi-worker),fcgi=Single process,off=Off (CLI only)",
+          "default": "pool"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "extensions",
+          "type": "php-extensions",
+          "label": "Extensions"
+        },
+        {
+          "id": "settings",
+          "type": "php-settings",
+          "label": "Settings"
+        },
+        {
+          "id": "xdebug",
+          "type": "php-xdebug",
+          "label": "Xdebug"
+        },
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "php.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.ini",
+            "separator": "=",
+            "comment_prefix": ";"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\php73-error.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "php",
+      "runtime",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [
+        "mysql",
+        "redis"
+      ],
+      "companion_tools": [
+        "composer",
+        "phpstan"
+      ]
+    },
+    "dependencies": [
+      "taurio-fpm"
+    ]
+  },
+  {
+    "id": "nginx",
+    "name": "Nginx",
+    "version": "1.27.4",
+    "category": "service",
+    "preselect_default": true,
+    "icon": "nginx",
+    "description": "High-performance HTTP server and reverse proxy",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://nginx.org/download/nginx-1.27.4.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\nginx"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4"
+      }
+    ],
+    "shims": [
+      {
+        "name": "nginx",
+        "target": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\nginx.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "nginx",
+      "app_config": {
+        "binary_path": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\nginx.exe",
+        "config_path": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\conf\\nginx.conf",
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\conf\\nginx.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {
+            "worker_processes": "auto;",
+            "worker_connections": "1024;",
+            "client_max_body_size": "256m;",
+            "client_body_buffer_size": "128k;",
+            "client_header_buffer_size": "4k;",
+            "large_client_header_buffers": "4 16k;",
+            "sendfile": "on;",
+            "tcp_nopush": "on;",
+            "tcp_nodelay": "on;",
+            "keepalive_timeout": "65;",
+            "types_hash_max_size": "2048;",
+            "server_tokens": "off;",
+            "gzip": "on;",
+            "gzip_vary": "on;",
+            "gzip_proxied": "any;",
+            "gzip_comp_level": "6;",
+            "gzip_types": "text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;",
+            "fastcgi_read_timeout": "300;",
+            "fastcgi_send_timeout": "300;",
+            "fastcgi_connect_timeout": "300;",
+            "proxy_read_timeout": "300;",
+            "proxy_connect_timeout": "300;",
+            "proxy_send_timeout": "300;"
+          }
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\nginx.exe",
+        "args": [
+          "-c",
+          "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\conf\\nginx.conf"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4",
+        "label": "Start Nginx"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\nginx.exe",
+        "args": [
+          "-s",
+          "stop"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4",
+        "label": "Stop Nginx"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\nginx.exe",
+        "args": [
+          "-s",
+          "reload"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4",
+        "label": "Reload Nginx"
+      },
+      "quick_actions": [
+        {
+          "id": "test-config",
+          "label": "Test Config",
+          "command": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\nginx.exe",
+          "args": [
+            "-t"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "HTTP Port",
+          "type": "number",
+          "default": "80",
+          "config_file": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\conf\\nginx.conf",
+          "config_key": "listen"
+        },
+        {
+          "key": "ssl_port",
+          "label": "HTTPS Port",
+          "type": "number",
+          "default": "443"
+        },
+        {
+          "key": "ssl_certificate",
+          "label": "SSL Certificate Path",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "key": "ssl_certificate_key",
+          "label": "SSL Key Path",
+          "type": "text",
+          "default": ""
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "nginx.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\conf\\nginx.conf",
+            "separator": " ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "logs-access",
+          "type": "log-viewer",
+          "label": "Access Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\logs\\access.log",
+            "lines": 200
+          }
+        },
+        {
+          "id": "logs-error",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\logs\\error.log",
+            "lines": 200
+          }
+        },
+        {
+          "id": "tls",
+          "type": "tls-manager",
+          "label": "TLS"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "web-server",
+      "reverse-proxy",
+      "infrastructure"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms",
+        "node",
+        "nextjs",
+        "nuxt",
+        "react",
+        "vue",
+        "angular",
+        "sveltekit",
+        "astro",
+        "remix",
+        "gatsby",
+        "express",
+        "nestjs",
+        "vite",
+        "django",
+        "flask",
+        "fastapi",
+        "rails",
+        "go-gin",
+        "go-fiber",
+        "go-echo",
+        "spring-boot",
+        "flutter-web"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "apache",
+    "name": "Apache HTTP Server",
+    "version": "2.4.63",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "apache",
+    "description": "Widely-used HTTP server with .htaccess support, mod_rewrite, and PHP via mod_fcgid",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://www.apachelounge.com/download/VS17/binaries/httpd-2.4.63-250207-win64-VS17.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\apache"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\apache"
+      }
+    ],
+    "shims": [
+      {
+        "name": "httpd",
+        "target": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\bin\\httpd.exe"
+      },
+      {
+        "name": "ab",
+        "target": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\bin\\ab.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "generic_service",
+      "app_config": {
+        "service_name": "apache",
+        "command": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\bin\\httpd.exe",
+        "args": [],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\conf\\httpd.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {
+            "Listen": "80",
+            "ServerName": "localhost",
+            "DocumentRoot": "\"C:/Taurio/www\"",
+            "ErrorLog": "\"C:/Taurio/data/logs/apache-error.log\"",
+            "CustomLog": "\"C:/Taurio/data/logs/apache-access.log\" common"
+          }
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\bin\\httpd.exe",
+        "args": [],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24",
+        "label": "Start Apache"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\bin\\httpd.exe",
+        "args": [
+          "-k",
+          "stop"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24",
+        "label": "Stop Apache"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\bin\\httpd.exe",
+        "args": [
+          "-k",
+          "restart"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24",
+        "label": "Restart Apache"
+      },
+      "quick_actions": [
+        {
+          "id": "test-config",
+          "label": "Test Config",
+          "command": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\bin\\httpd.exe",
+          "args": [
+            "-t"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "HTTP Port",
+          "type": "number",
+          "default": "80",
+          "config_file": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\conf\\httpd.conf",
+          "config_key": "Listen"
+        },
+        {
+          "key": "ssl_port",
+          "label": "HTTPS Port",
+          "type": "number",
+          "default": "443"
+        },
+        {
+          "key": "document_root",
+          "label": "Document Root",
+          "type": "text",
+          "default": "{{TAURIO_ROOT}}\\www",
+          "config_file": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\conf\\httpd.conf",
+          "config_key": "DocumentRoot"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "httpd.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\apache\\Apache24\\conf\\httpd.conf",
+            "separator": " ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "logs-access",
+          "type": "log-viewer",
+          "label": "Access Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\apache-access.log",
+            "lines": 200
+          }
+        },
+        {
+          "id": "logs-error",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\apache-error.log",
+            "lines": 200
+          }
+        },
+        {
+          "id": "tls",
+          "type": "tls-manager",
+          "label": "TLS"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "web-server",
+      "infrastructure",
+      "php"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms",
+        "wordpress",
+        "drupal"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "mysql",
+    "name": "MySQL",
+    "version": "8.0.41",
+    "category": "service",
+    "preselect_default": true,
+    "icon": "mysql",
+    "description": "MySQL relational database server",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.41-winx64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\mysql"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "mysql",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysql.exe"
+      },
+      {
+        "name": "mysqldump",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqldump.exe"
+      },
+      {
+        "name": "mysqladmin",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqladmin.exe"
+      },
+      {
+        "name": "mysqlimport",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqlimport.exe"
+      },
+      {
+        "name": "mysqlcheck",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqlcheck.exe"
+      },
+      {
+        "name": "mysqld",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe"
+      },
+      {
+        "name": "mysqlshow",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqlshow.exe"
+      },
+      {
+        "name": "mysqlpump",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqlpump.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "mysql",
+      "app_config": {
+        "service_name": "mysql",
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
+        "args": [
+          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "--console"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "separator": "=",
+          "comment_prefix": "#",
+          "settings": {
+            "basedir": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64",
+            "datadir": "{{TAURIO_ROOT}}\\data\\mysql",
+            "port": "3306",
+            "socket": "{{TAURIO_ROOT}}\\tmp\\mysql.sock",
+            "log_error": "{{TAURIO_ROOT}}\\data\\logs\\mysql-error.log",
+            "slow_query_log": "1",
+            "slow_query_log_file": "{{TAURIO_ROOT}}\\data\\logs\\mysql-slow.log",
+            "long_query_time": "2",
+            "max_connections": "150",
+            "max_allowed_packet": "256M",
+            "innodb_buffer_pool_size": "256M",
+            "innodb_log_file_size": "64M",
+            "innodb_flush_log_at_trx_commit": "2",
+            "innodb_flush_method": "normal",
+            "innodb_file_per_table": "1",
+            "innodb_io_capacity": "200",
+            "key_buffer_size": "32M",
+            "table_open_cache": "2000",
+            "sort_buffer_size": "4M",
+            "read_buffer_size": "2M",
+            "read_rnd_buffer_size": "4M",
+            "join_buffer_size": "4M",
+            "tmp_table_size": "64M",
+            "max_heap_table_size": "64M",
+            "thread_cache_size": "8",
+            "sql_mode": "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+            "character-set-server": "utf8mb4",
+            "collation-server": "utf8mb4_unicode_ci",
+            "default_authentication_plugin": "mysql_native_password",
+            "skip-name-resolve": "1"
+          },
+          "append_lines": [
+            "[mysqld]"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
+        "args": [
+          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "--console"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64",
+        "label": "Start MySQL"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqladmin.exe",
+        "args": [
+          "-u",
+          "root",
+          "shutdown"
+        ],
+        "label": "Stop MySQL"
+      },
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "reset-pw",
+          "label": "Reset Root Password",
+          "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqladmin.exe",
+          "args": [
+            "-u",
+            "root",
+            "password",
+            "{{new_password}}"
+          ],
+          "params": [
+            {
+              "name": "new_password",
+              "label": "New Password",
+              "type": "password"
+            }
+          ]
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "3306",
+          "config_file": "{{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "config_key": "port"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "my.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+            "separator": "=",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "databases",
+          "type": "db-manager",
+          "label": "Databases",
+          "config": {
+            "engine": "mysql",
+            "host": "127.0.0.1",
+            "port_override_key": "port",
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysql.exe"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\mysql-error.log",
+            "lines": 200
+          }
+        },
+        {
+          "id": "actions",
+          "type": "action-list",
+          "label": "Actions",
+          "config": {
+            "actions": [
+              {
+                "id": "mysql-init",
+                "label": "Initialize Data Directory",
+                "script_id": "mysql-init-data"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "create-database",
+        "label": "Create Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysql.exe",
+        "args": [
+          "-u",
+          "root",
+          "-e",
+          "CREATE DATABASE IF NOT EXISTS `{{db_name}}`;"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Create database {{db_name}}?"
+      },
+      {
+        "id": "drop-database",
+        "label": "Drop Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysql.exe",
+        "args": [
+          "-u",
+          "root",
+          "-e",
+          "DROP DATABASE IF EXISTS `{{db_name}}`;"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Drop database {{db_name}}? This cannot be undone!"
+      },
+      {
+        "id": "mysql-init-data",
+        "label": "Initialize Data Directory",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
+        "args": [
+          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "--initialize-insecure"
+        ],
+        "params": [],
+        "confirm": true,
+        "confirm_message": "Initialize MySQL data directory? Only do this for first-time setup."
+      }
+    ],
+    "tags": [
+      "database",
+      "sql",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "laravel",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "lumen",
+        "symfony"
+      ],
+      "companion_packages": [
+        "redis",
+        "mailpit"
+      ],
+      "companion_tools": [
+        "heidisql",
+        "dbeaver"
+      ]
+    }
+  },
+  {
+    "id": "mariadb",
+    "name": "MariaDB",
+    "version": "11.7.2",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "mariadb",
+    "description": "MariaDB relational database server (MySQL fork)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://archive.mariadb.org/mariadb-11.7.2/winx64-packages/mariadb-11.7.2-winx64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\mysql"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "mariadb",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb.exe"
+      },
+      {
+        "name": "mariadb-dump",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-dump.exe"
+      },
+      {
+        "name": "mariadb-admin",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-admin.exe"
+      },
+      {
+        "name": "mariadb-import",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-import.exe"
+      },
+      {
+        "name": "mariadb-check",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-check.exe"
+      },
+      {
+        "name": "mariadbd",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadbd.exe"
+      },
+      {
+        "name": "mariadb-show",
+        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-show.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "mysql",
+      "app_config": {
+        "service_name": "mariadb",
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
+        "args": [
+          "--defaults-file={{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "--console"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "separator": "=",
+          "comment_prefix": "#",
+          "settings": {
+            "basedir": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64",
+            "datadir": "{{TAURIO_ROOT}}\\data\\mariadb",
+            "port": "3307",
+            "socket": "{{TAURIO_ROOT}}\\tmp\\mariadb.sock",
+            "log_error": "{{TAURIO_ROOT}}\\data\\logs\\mariadb-error.log",
+            "slow_query_log": "1",
+            "slow_query_log_file": "{{TAURIO_ROOT}}\\data\\logs\\mariadb-slow.log",
+            "long_query_time": "2",
+            "max_connections": "150",
+            "max_allowed_packet": "256M",
+            "innodb_buffer_pool_size": "256M",
+            "innodb_log_file_size": "64M",
+            "innodb_flush_log_at_trx_commit": "2",
+            "innodb_file_per_table": "1",
+            "innodb_io_capacity": "200",
+            "key_buffer_size": "32M",
+            "table_open_cache": "2000",
+            "sort_buffer_size": "4M",
+            "read_buffer_size": "2M",
+            "read_rnd_buffer_size": "4M",
+            "join_buffer_size": "4M",
+            "tmp_table_size": "64M",
+            "max_heap_table_size": "64M",
+            "thread_cache_size": "8",
+            "character-set-server": "utf8mb4",
+            "collation-server": "utf8mb4_unicode_ci",
+            "skip-name-resolve": "1"
+          },
+          "append_lines": [
+            "[mysqld]"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
+        "args": [
+          "--defaults-file={{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "--console"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64",
+        "label": "Start MariaDB"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-admin.exe",
+        "args": [
+          "-u",
+          "root",
+          "shutdown"
+        ],
+        "label": "Stop MariaDB"
+      },
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "3307",
+          "config_file": "{{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "config_key": "port"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "my.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+            "separator": "=",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "databases",
+          "type": "db-manager",
+          "label": "Databases",
+          "config": {
+            "engine": "mysql",
+            "host": "127.0.0.1",
+            "port_override_key": "port",
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb.exe"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\mariadb-error.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "create-database",
+        "label": "Create Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb.exe",
+        "args": [
+          "-u",
+          "root",
+          "-e",
+          "CREATE DATABASE IF NOT EXISTS `{{db_name}}`;"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Create database {{db_name}}?"
+      }
+    ],
+    "tags": [
+      "database",
+      "sql",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "laravel",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "lumen",
+        "symfony"
+      ],
+      "companion_packages": [
+        "redis",
+        "mailpit"
+      ],
+      "companion_tools": [
+        "heidisql",
+        "dbeaver"
+      ]
+    }
+  },
+  {
+    "id": "redis",
+    "name": "Redis",
+    "version": "5.0.14.1",
+    "category": "service",
+    "preselect_default": true,
+    "icon": "redis",
+    "description": "In-memory data structure store",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/tporadowski/redis/releases/download/v5.0.14.1/Redis-x64-5.0.14.1.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1"
+      }
+    ],
+    "shims": [
+      {
+        "name": "redis-server",
+        "target": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-server.exe"
+      },
+      {
+        "name": "redis-cli",
+        "target": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-cli.exe"
+      },
+      {
+        "name": "redis-benchmark",
+        "target": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-benchmark.exe"
+      },
+      {
+        "name": "redis-check-aof",
+        "target": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-check-aof.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "redis",
+      "app_config": {
+        "service_name": "redis",
+        "command": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-server.exe",
+        "args": [
+          "{{TAURIO_ROOT}}\\data\\redis\\redis.conf"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\redis\\redis.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {
+            "bind": "127.0.0.1",
+            "port": "6379",
+            "timeout": "0",
+            "tcp-keepalive": "300",
+            "daemonize": "no",
+            "loglevel": "notice",
+            "logfile": "{{TAURIO_ROOT}}\\data\\logs\\redis.log",
+            "databases": "16",
+            "maxmemory": "256mb",
+            "maxmemory-policy": "allkeys-lru",
+            "appendonly": "yes",
+            "appendfilename": "appendonly.aof",
+            "appendfsync": "everysec",
+            "dir": "{{TAURIO_ROOT}}\\data\\redis",
+            "dbfilename": "dump.rdb",
+            "save": "900 1",
+            "rdbcompression": "yes",
+            "rdbchecksum": "yes",
+            "stop-writes-on-bgsave-error": "no",
+            "slowlog-log-slower-than": "10000",
+            "slowlog-max-len": "128"
+          }
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-server.exe",
+        "args": [
+          "{{TAURIO_ROOT}}\\data\\redis\\redis.conf"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1",
+        "label": "Start Redis"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-cli.exe",
+        "args": [
+          "shutdown"
+        ],
+        "label": "Stop Redis"
+      },
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "flush-all",
+          "label": "Flush All Data",
+          "command": "{{TAURIO_ROOT}}\\bin\\redis\\redis-x64-5.0.14.1\\redis-cli.exe",
+          "args": [
+            "FLUSHALL"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "6379",
+          "config_file": "{{TAURIO_ROOT}}\\data\\redis\\redis.conf",
+          "config_key": "port"
+        },
+        {
+          "key": "maxmemory",
+          "label": "Max Memory",
+          "type": "text",
+          "default": "256mb",
+          "config_file": "{{TAURIO_ROOT}}\\data\\redis\\redis.conf",
+          "config_key": "maxmemory"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "redis.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\redis\\redis.conf",
+            "separator": " ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\redis.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "database",
+      "cache",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "laravel",
+        "symfony",
+        "nextjs",
+        "nuxt",
+        "nestjs",
+        "django",
+        "fastapi"
+      ],
+      "companion_packages": [],
+      "companion_tools": [
+        "tiny-rdm"
+      ]
+    }
+  },
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "version": "17.2",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "postgresql",
+    "description": "Advanced open-source relational database",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://get.enterprisedb.com/postgresql/postgresql-17.2-1-windows-x64-binaries.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\postgresql"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\postgresql\\postgresql-17.2"
+      }
+    ],
+    "shims": [
+      {
+        "name": "psql",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\psql.exe"
+      },
+      {
+        "name": "pg_dump",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_dump.exe"
+      },
+      {
+        "name": "pg_restore",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_restore.exe"
+      },
+      {
+        "name": "pg_ctl",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe"
+      },
+      {
+        "name": "createdb",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\createdb.exe"
+      },
+      {
+        "name": "dropdb",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\dropdb.exe"
+      },
+      {
+        "name": "createuser",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\createuser.exe"
+      },
+      {
+        "name": "pg_isready",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_isready.exe"
+      },
+      {
+        "name": "initdb",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\initdb.exe"
+      },
+      {
+        "name": "vacuumdb",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\vacuumdb.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "mysql",
+      "app_config": {
+        "service_name": "postgresql",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgresql\\postgresql.conf",
+          "separator": " = ",
+          "comment_prefix": "#",
+          "settings": {
+            "listen_addresses": "'127.0.0.1'",
+            "port": "5432",
+            "max_connections": "100",
+            "shared_buffers": "256MB",
+            "effective_cache_size": "768MB",
+            "maintenance_work_mem": "128MB",
+            "work_mem": "16MB",
+            "wal_buffers": "16MB",
+            "checkpoint_completion_target": "0.9",
+            "random_page_cost": "1.1",
+            "effective_io_concurrency": "0",
+            "min_wal_size": "1GB",
+            "max_wal_size": "4GB",
+            "default_statistics_target": "100",
+            "log_timezone": "'UTC'",
+            "timezone": "'UTC'",
+            "datestyle": "'iso, mdy'",
+            "default_text_search_config": "'pg_catalog.english'",
+            "logging_collector": "on",
+            "log_directory": "'C:/Taurio/data/logs'",
+            "log_filename": "'postgresql-%Y-%m-%d.log'",
+            "log_min_duration_statement": "1000",
+            "log_statement": "'ddl'",
+            "log_line_prefix": "'%t [%p]: [%l-1] user=%u,db=%d '"
+          }
+        },
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgresql\\pg_hba.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {},
+          "append_lines": [
+            "# TYPE  DATABASE  USER  ADDRESS  METHOD",
+            "local   all       all             trust",
+            "host    all       all   127.0.0.1/32  trust",
+            "host    all       all   ::1/128       trust"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql",
+        "label": "Start PostgreSQL"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "stop"
+        ],
+        "label": "Stop PostgreSQL"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "reload"
+        ],
+        "label": "Reload PostgreSQL"
+      },
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "5432",
+          "config_file": "{{TAURIO_ROOT}}\\data\\postgresql\\postgresql.conf",
+          "config_key": "port"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "postgresql.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\postgresql\\postgresql.conf",
+            "separator": " = ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "databases",
+          "type": "db-manager",
+          "label": "Databases",
+          "config": {
+            "engine": "postgresql",
+            "host": "127.0.0.1",
+            "port_override_key": "port",
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\psql.exe"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "create-database",
+        "label": "Create Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\createdb.exe",
+        "args": [
+          "{{db_name}}"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Create database {{db_name}}?"
+      },
+      {
+        "id": "init-db",
+        "label": "Initialize Data Directory",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\initdb.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "-U",
+          "postgres",
+          "-E",
+          "UTF8"
+        ],
+        "params": [],
+        "confirm": true,
+        "confirm_message": "Initialize PostgreSQL data directory?"
+      }
+    ],
+    "tags": [
+      "database",
+      "sql",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "nextjs",
+        "nuxt",
+        "nestjs",
+        "django",
+        "fastapi",
+        "rails",
+        "spring-boot",
+        "go-gin",
+        "go-fiber",
+        "go-echo"
+      ],
+      "companion_packages": [
+        "redis"
+      ],
+      "companion_tools": [
+        "dbeaver"
+      ]
+    }
+  },
+  {
+    "id": "elasticsearch",
+    "name": "Elasticsearch",
+    "version": "8.17.0",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "elasticsearch",
+    "description": "Distributed search and analytics engine",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.17.0-windows-x86_64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\elasticsearch"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0"
+      }
+    ],
+    "shims": [
+      {
+        "name": "elasticsearch",
+        "target": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\bin\\elasticsearch.bat"
+      },
+      {
+        "name": "elasticsearch-plugin",
+        "target": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\bin\\elasticsearch-plugin.bat"
+      },
+      {
+        "name": "elasticsearch-keystore",
+        "target": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\bin\\elasticsearch-keystore.bat"
+      }
+    ],
+    "config": {
+      "tool_type": "mysql",
+      "app_config": {
+        "service_name": "elasticsearch",
+        "command": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\bin\\elasticsearch.bat",
+        "args": [],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\config\\elasticsearch.yml",
+          "separator": ": ",
+          "comment_prefix": "#",
+          "settings": {
+            "cluster.name": "taurio-dev",
+            "node.name": "taurio-node-1",
+            "path.data": "C:/Taurio/data/elasticsearch",
+            "path.logs": "C:/Taurio/data/logs",
+            "network.host": "127.0.0.1",
+            "http.port": "9200",
+            "transport.port": "9300",
+            "discovery.type": "single-node",
+            "xpack.security.enabled": "false",
+            "xpack.security.enrollment.enabled": "false",
+            "xpack.security.http.ssl.enabled": "false",
+            "xpack.security.transport.ssl.enabled": "false",
+            "xpack.ml.enabled": "false",
+            "action.auto_create_index": "true",
+            "indices.memory.index_buffer_size": "30%"
+          }
+        },
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\config\\jvm.options.d\\taurio.options",
+          "separator": "",
+          "comment_prefix": "#",
+          "settings": {},
+          "append_lines": [
+            "-Xms512m",
+            "-Xmx512m"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\bin\\elasticsearch.bat",
+        "args": [],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0",
+        "label": "Start Elasticsearch"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "http_port",
+          "label": "HTTP Port",
+          "type": "number",
+          "default": "9200",
+          "config_file": "{{TAURIO_ROOT}}\\bin\\elasticsearch\\elasticsearch-8.17.0\\config\\elasticsearch.yml",
+          "config_key": "http.port"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": []
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB",
+    "version": "8.0.4",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "mongodb",
+    "description": "NoSQL document database",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-8.0.4.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\mongodb"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\mongodb\\mongodb-8.0.4"
+      }
+    ],
+    "shims": [
+      {
+        "name": "mongod",
+        "target": "{{TAURIO_ROOT}}\\bin\\mongodb\\mongodb-8.0.4\\bin\\mongod.exe"
+      },
+      {
+        "name": "mongos",
+        "target": "{{TAURIO_ROOT}}\\bin\\mongodb\\mongodb-8.0.4\\bin\\mongos.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "mysql",
+      "app_config": {
+        "service_name": "mongodb",
+        "command": "{{TAURIO_ROOT}}\\bin\\mongodb\\mongodb-8.0.4\\bin\\mongod.exe",
+        "args": [
+          "--config",
+          "{{TAURIO_ROOT}}\\data\\mongodb\\mongod.cfg"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mongodb\\mongodb-8.0.4"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\mongodb\\mongod.cfg",
+          "separator": ": ",
+          "comment_prefix": "#",
+          "settings": {
+            "systemLog.destination": "file",
+            "systemLog.path": "C:/Taurio/data/logs/mongodb.log",
+            "systemLog.logAppend": "true",
+            "storage.dbPath": "C:/Taurio/data/mongodb/db",
+            "storage.journal.enabled": "true",
+            "storage.wiredTiger.engineConfig.cacheSizeGB": "0.5",
+            "net.bindIp": "127.0.0.1",
+            "net.port": "27017",
+            "net.maxIncomingConnections": "100",
+            "security.authorization": "disabled"
+          }
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\mongodb\\mongodb-8.0.4\\bin\\mongod.exe",
+        "args": [
+          "--config",
+          "{{TAURIO_ROOT}}\\data\\mongodb\\mongod.cfg"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mongodb\\mongodb-8.0.4",
+        "label": "Start MongoDB"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "27017",
+          "config_file": "{{TAURIO_ROOT}}\\data\\mongodb\\mongod.cfg",
+          "config_key": "net.port"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": []
+  },
+  {
+    "id": "nssm",
+    "name": "NSSM (Service Manager)",
+    "version": "2.24",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "nssm",
+    "description": "Windows service wrapper utility",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://nssm.cc/release/nssm-2.24.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\nssm"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\nssm\\nssm-2.24"
+      }
+    ],
+    "shims": [
+      {
+        "name": "nssm",
+        "target": "{{TAURIO_ROOT}}\\bin\\nssm\\nssm-2.24\\win64\\nssm.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": []
+  },
+  {
+    "id": "mailpit",
+    "name": "Mailpit",
+    "version": "1.22.3",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "mailpit",
+    "description": "Email testing tool with SMTP server and web UI",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/axllent/mailpit/releases/download/v1.22.3/mailpit-windows-amd64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\mailpit"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\mailpit"
+      }
+    ],
+    "shims": [
+      {
+        "name": "mailpit",
+        "target": "{{TAURIO_ROOT}}\\bin\\mailpit\\mailpit.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "redis",
+      "app_config": {
+        "service_name": "mailpit",
+        "command": "{{TAURIO_ROOT}}\\bin\\mailpit\\mailpit.exe",
+        "args": [],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mailpit"
+      },
+      "config_files": []
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\mailpit\\mailpit.exe",
+        "args": [
+          "--smtp",
+          "0.0.0.0:1025",
+          "--listen",
+          "0.0.0.0:8025",
+          "--db-file",
+          "{{TAURIO_ROOT}}\\data\\mailpit\\mailpit.db"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mailpit",
+        "label": "Start Mailpit"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "open-ui",
+          "label": "Open Web UI",
+          "command": "cmd.exe",
+          "args": [
+            "/c",
+            "start",
+            "http://127.0.0.1:8025"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "smtp_port",
+          "label": "SMTP Port",
+          "type": "number",
+          "default": "1025"
+        },
+        {
+          "key": "web_port",
+          "label": "Web UI Port",
+          "type": "number",
+          "default": "8025"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "email",
+      "testing",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "laravel",
+        "symfony",
+        "wordpress",
+        "cakephp",
+        "yii2"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "composer",
+    "name": "Composer",
+    "version": "2.8.5",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "composer",
+    "description": "PHP dependency manager",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://getcomposer.org/download/2.8.5/composer.phar",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\composer\\composer.phar"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\composer"
+      }
+    ],
+    "shims": [
+      {
+        "name": "composer",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
+        "args": [
+          "{{TAURIO_ROOT}}\\bin\\composer\\composer.phar"
+        ]
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "php",
+      "package-manager"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [],
+      "companion_tools": [
+        "phpstan",
+        "php-cs-fixer"
+      ]
+    }
+  },
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "version": "22.13.1",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "nodejs",
+    "description": "JavaScript runtime (includes npm and npx)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://nodejs.org/dist/v22.13.1/node-v22.13.1-win-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\nodejs"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\nodejs\\node-v22.13.1-win-x64"
+      }
+    ],
+    "shims": [
+      {
+        "name": "node",
+        "target": "{{TAURIO_ROOT}}\\bin\\nodejs\\node-v22.13.1-win-x64\\node.exe"
+      },
+      {
+        "name": "npm",
+        "target": "{{TAURIO_ROOT}}\\bin\\nodejs\\node-v22.13.1-win-x64\\npm.cmd"
+      },
+      {
+        "name": "npx",
+        "target": "{{TAURIO_ROOT}}\\bin\\nodejs\\node-v22.13.1-win-x64\\npx.cmd"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "javascript",
+      "runtime"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "node",
+        "nextjs",
+        "nuxt",
+        "react",
+        "vue",
+        "angular",
+        "sveltekit",
+        "astro",
+        "remix",
+        "gatsby",
+        "express",
+        "nestjs",
+        "vite",
+        "flutter-web"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "yarn",
+    "name": "Yarn",
+    "version": "1.22.22",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "yarn",
+    "description": "Fast, reliable JavaScript package manager",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-1.22.22.js",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\yarn\\yarn.js"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\yarn"
+      }
+    ],
+    "shims": [
+      {
+        "name": "yarn",
+        "target": "{{TAURIO_ROOT}}\\bin\\nodejs\\node-v22.13.1-win-x64\\node.exe",
+        "args": [
+          "{{TAURIO_ROOT}}\\bin\\yarn\\yarn.js"
+        ]
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "javascript",
+      "package-manager"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "node",
+        "nextjs",
+        "nuxt",
+        "react",
+        "vue",
+        "angular",
+        "sveltekit",
+        "astro",
+        "remix",
+        "gatsby",
+        "express",
+        "nestjs",
+        "vite"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "notepadpp",
+    "name": "Notepad++",
+    "version": "8.7.5",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "notepadpp",
+    "description": "Lightweight text editor (portable)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.7.5/npp.8.7.5.portable.x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\notepadpp"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\notepadpp"
+      }
+    ],
+    "shims": [
+      {
+        "name": "notepad++",
+        "target": "{{TAURIO_ROOT}}\\bin\\notepadpp\\notepad++.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "editor",
+      "gui"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\bin\notepadpp\notepad++.exe",
+        "args": [],
+        "label": "Open Notepad++"
+      }
+    }
+  },
+  {
+    "id": "tiny-rdm",
+    "name": "Tiny RDM",
+    "version": "1.1.4",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "tiny-rdm",
+    "description": "Redis desktop manager GUI",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/tiny-craft/tiny-rdm/releases/download/v1.1.4/TinyRDM_Windows_x64_portable.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\tiny-rdm"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\tiny-rdm"
+      }
+    ],
+    "shims": [
+      {
+        "name": "tiny-rdm",
+        "target": "{{TAURIO_ROOT}}\\bin\\tiny-rdm\\TinyRDM.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "database",
+      "gui",
+      "redis"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\bin\tiny-rdmTinyRDM.exe",
+        "args": [],
+        "label": "Open Tiny RDM"
+      }
+    }
+  },
+  {
+    "id": "heidisql",
+    "name": "HeidiSQL",
+    "version": "12.8",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "heidisql",
+    "description": "Database management GUI for MySQL, MariaDB, PostgreSQL",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_Portable.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\heidisql"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\heidisql"
+      }
+    ],
+    "shims": [
+      {
+        "name": "heidisql",
+        "target": "{{TAURIO_ROOT}}\\bin\\heidisql\\heidisql.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "database",
+      "gui",
+      "sql"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\binheidisqlheidisql.exe",
+        "args": [],
+        "label": "Open HeidiSQL"
+      }
+    }
+  },
+  {
+    "id": "tabby",
+    "name": "Tabby",
+    "version": "1.0.215",
+    "category": "tool",
+    "preselect_default": true,
+    "icon": "tabby",
+    "description": "Modern terminal emulator (portable)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/Eugeny/tabby/releases/download/v1.0.215/tabby-1.0.215-portable-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\tabby"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\tabby"
+      }
+    ],
+    "shims": [
+      {
+        "name": "tabby",
+        "target": "{{TAURIO_ROOT}}\\bin\\tabby\\Tabby.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "terminal",
+      "gui"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\bin\tabbyTabby.exe",
+        "args": [],
+        "label": "Open Tabby"
+      }
+    }
+  },
+  {
+    "id": "dbeaver",
+    "name": "DBeaver Community",
+    "version": "25.0.0",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "dbeaver",
+    "description": "Universal database GUI for MySQL, PostgreSQL, SQLite, MongoDB and 80+ databases",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://dbeaver.io/files/dbeaver-ce-latest-win32.win32.x86_64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\dbeaver"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\dbeaver"
+      }
+    ],
+    "shims": [
+      {
+        "name": "dbeaver",
+        "target": "{{TAURIO_ROOT}}\\bin\\dbeaver\\dbeaver\\dbeaver.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "database",
+      "gui",
+      "sql"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\bindbeaverdbeaverdbeaver.exe",
+        "args": [],
+        "label": "Open DBeaver"
+      }
+    }
+  },
+  {
+    "id": "meilisearch",
+    "name": "Meilisearch",
+    "version": "1.12.0",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "meilisearch",
+    "description": "Lightning-fast search engine with typo tolerance (Elasticsearch alternative)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/meilisearch/meilisearch/releases/latest/download/meilisearch-windows-amd64.exe",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\meilisearch\\meilisearch.exe"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\meilisearch"
+      }
+    ],
+    "shims": [
+      {
+        "name": "meilisearch",
+        "target": "{{TAURIO_ROOT}}\\bin\\meilisearch\\meilisearch.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\meilisearch\\meilisearch.exe",
+        "args": [
+          "--db-path",
+          "{{TAURIO_ROOT}}\\data\\meilisearch",
+          "--env",
+          "development",
+          "--http-addr",
+          "127.0.0.1:7700"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\meilisearch",
+        "label": "Start Meilisearch"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "open-ui",
+          "label": "Open Dashboard",
+          "command": "cmd.exe",
+          "args": [
+            "/c",
+            "start",
+            "http://127.0.0.1:7700"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "HTTP Port",
+          "type": "number",
+          "default": "7700"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "search",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "laravel",
+        "nextjs",
+        "nuxt"
+      ],
+      "companion_packages": [
+        "redis"
+      ],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "minio",
+    "name": "MinIO",
+    "version": "latest",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "minio",
+    "description": "S3-compatible local object storage server",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://dl.min.io/server/minio/release/windows-amd64/minio.exe",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\minio\\minio.exe"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\minio"
+      }
+    ],
+    "shims": [
+      {
+        "name": "minio",
+        "target": "{{TAURIO_ROOT}}\\bin\\minio\\minio.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\minio\\minio.exe",
+        "args": [
+          "server",
+          "{{TAURIO_ROOT}}\\data\\minio",
+          "--address",
+          "127.0.0.1:9000",
+          "--console-address",
+          "127.0.0.1:9001"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\minio",
+        "label": "Start MinIO"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "open-console",
+          "label": "Open Console",
+          "command": "cmd.exe",
+          "args": [
+            "/c",
+            "start",
+            "http://127.0.0.1:9001"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "api_port",
+          "label": "API Port",
+          "type": "number",
+          "default": "9000"
+        },
+        {
+          "key": "console_port",
+          "label": "Console Port",
+          "type": "number",
+          "default": "9001"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "storage",
+      "s3",
+      "backend"
+    ]
+  },
+  {
+    "id": "memcached",
+    "name": "Memcached",
+    "version": "1.6.8",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "memcached",
+    "description": "High-performance distributed memory caching system",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/jefyt/memcached-windows/releases/download/1.6.8_mingw/memcached-1.6.8-win64-mingw.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\memcached"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\memcached"
+      }
+    ],
+    "shims": [
+      {
+        "name": "memcached",
+        "target": "{{TAURIO_ROOT}}\\bin\\memcached\\memcached.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\memcached\\memcached.exe",
+        "args": [
+          "-m",
+          "256",
+          "-p",
+          "11211",
+          "-l",
+          "127.0.0.1"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\memcached",
+        "label": "Start Memcached"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "11211"
+        },
+        {
+          "key": "memory",
+          "label": "Max Memory (MB)",
+          "type": "number",
+          "default": "256"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "cache",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "laravel",
+        "wordpress",
+        "drupal"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "bruno",
+    "name": "Bruno",
+    "version": "1.36.1",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "bruno",
+    "description": "Open-source offline API client (Postman alternative). Git-friendly collections",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/usebruno/bruno/releases/latest/download/bruno_portable_x64_win.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\bruno"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\bruno"
+      }
+    ],
+    "shims": [
+      {
+        "name": "bruno",
+        "target": "{{TAURIO_ROOT}}\\bin\\bruno\\Bruno.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "api",
+      "testing",
+      "gui"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\bin\brunoBruno.exe",
+        "args": [],
+        "label": "Open Bruno"
+      }
+    }
+  },
+  {
+    "id": "mkcert",
+    "name": "mkcert",
+    "version": "1.4.4",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "mkcert",
+    "description": "Zero-config tool to create locally-trusted HTTPS development certificates",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://dl.filippo.io/mkcert/latest?for=windows/amd64",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\mkcert\\mkcert.exe"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\mkcert"
+      }
+    ],
+    "shims": [
+      {
+        "name": "mkcert",
+        "target": "{{TAURIO_ROOT}}\\bin\\mkcert\\mkcert.exe"
+      }
+    ],
+    "scripts": [
+      {
+        "id": "install-ca",
+        "label": "Install Local CA",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\mkcert\\mkcert.exe",
+        "args": [
+          "-install"
+        ],
+        "params": [],
+        "confirm": true,
+        "confirm_message": "Install mkcert's local CA into the system trust store?"
+      },
+      {
+        "id": "create-cert",
+        "label": "Create Certificate",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\mkcert\\mkcert.exe",
+        "args": [
+          "{{domains}}"
+        ],
+        "params": [
+          {
+            "name": "domains",
+            "label": "Domains (space-separated)",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": false
+      }
+    ],
+    "tags": [
+      "ssl",
+      "security"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms",
+        "node",
+        "nextjs",
+        "nuxt",
+        "react",
+        "vue",
+        "angular",
+        "sveltekit",
+        "astro",
+        "remix",
+        "gatsby",
+        "express",
+        "nestjs",
+        "vite",
+        "django",
+        "fastapi",
+        "flask",
+        "rails",
+        "spring-boot",
+        "flutter-web"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "git",
+    "name": "Git Portable",
+    "version": "2.47.1",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "git",
+    "description": "Distributed version control system (portable, no installer)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/PortableGit-2.47.1-64-bit.7z.exe",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\git"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\git"
+      }
+    ],
+    "shims": [
+      {
+        "name": "git",
+        "target": "{{TAURIO_ROOT}}\\bin\\git\\bin\\git.exe"
+      },
+      {
+        "name": "gitk",
+        "target": "{{TAURIO_ROOT}}\\bin\\git\\cmd\\gitk.exe"
+      },
+      {
+        "name": "git-bash",
+        "target": "{{TAURIO_ROOT}}\\bin\\git\\git-bash.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "version-control",
+      "cli"
+    ]
+  },
+  {
+    "id": "pnpm",
+    "name": "pnpm",
+    "version": "9.15.4",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "pnpm",
+    "description": "Fast, disk-efficient Node.js package manager (standalone, no Node required)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-win-x64.exe",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\pnpm\\pnpm.exe"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\pnpm"
+      }
+    ],
+    "shims": [
+      {
+        "name": "pnpm",
+        "target": "{{TAURIO_ROOT}}\\bin\\pnpm\\pnpm.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "javascript",
+      "package-manager"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "node",
+        "nextjs",
+        "nuxt",
+        "react",
+        "vue",
+        "angular",
+        "sveltekit",
+        "astro",
+        "remix",
+        "gatsby",
+        "express",
+        "nestjs",
+        "vite"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "php-cs-fixer",
+    "name": "PHP CS Fixer",
+    "version": "3.65.0",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "php",
+    "description": "Automatically fixes PHP coding standards issues",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://cs.symfony.com/download/php-cs-fixer-v3.phar",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\php-cs-fixer\\php-cs-fixer.phar"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\php-cs-fixer"
+      }
+    ],
+    "shims": [
+      {
+        "name": "php-cs-fixer",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
+        "args": [
+          "{{TAURIO_ROOT}}\\bin\\php-cs-fixer\\php-cs-fixer.phar"
+        ]
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "php",
+      "linting",
+      "cli"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "phpstan",
+    "name": "PHPStan",
+    "version": "2.1.0",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "php",
+    "description": "PHP static analysis tool - finds bugs without running code",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/phpstan/phpstan/raw/2.1.x/phpstan.phar",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\phpstan\\phpstan.phar"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\phpstan"
+      }
+    ],
+    "shims": [
+      {
+        "name": "phpstan",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
+        "args": [
+          "{{TAURIO_ROOT}}\\bin\\phpstan\\phpstan.phar"
+        ]
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "php",
+      "linting",
+      "cli"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "php",
+        "laravel",
+        "symfony",
+        "wordpress",
+        "drupal",
+        "magento2",
+        "cakephp",
+        "codeigniter4",
+        "yii2",
+        "slimphp",
+        "lumen",
+        "statamic",
+        "octobercms"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "cloudflared",
+    "name": "cloudflared",
+    "version": "latest",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "cloudflare",
+    "description": "Cloudflare Tunnel - expose local services to the internet with HTTPS (free)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\cloudflared\\cloudflared.exe"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\cloudflared"
+      }
+    ],
+    "shims": [
+      {
+        "name": "cloudflared",
+        "target": "{{TAURIO_ROOT}}\\bin\\cloudflared\\cloudflared.exe"
+      }
+    ],
+    "scripts": [
+      {
+        "id": "quick-tunnel",
+        "label": "Quick Tunnel",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\cloudflared\\cloudflared.exe",
+        "args": [
+          "tunnel",
+          "--url",
+          "http://localhost:{{port}}"
+        ],
+        "params": [
+          {
+            "name": "port",
+            "label": "Local Port",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "confirm": false
+      }
+    ],
+    "tags": [
+      "tunnel",
+      "networking",
+      "cli"
+    ]
+  },
+  {
+    "id": "ngrok",
+    "name": "ngrok",
+    "version": "3.0",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "ngrok",
+    "description": "Expose local servers to the internet via secure tunnels",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\ngrok"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\ngrok"
+      }
+    ],
+    "shims": [
+      {
+        "name": "ngrok",
+        "target": "{{TAURIO_ROOT}}\\bin\\ngrok\\ngrok.exe"
+      }
+    ],
+    "scripts": [
+      {
+        "id": "http-tunnel",
+        "label": "HTTP Tunnel",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\ngrok\\ngrok.exe",
+        "args": [
+          "http",
+          "{{port}}"
+        ],
+        "params": [
+          {
+            "name": "port",
+            "label": "Local Port",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "confirm": false
+      }
+    ],
+    "tags": [
+      "tunnel",
+      "networking",
+      "cli"
+    ]
+  },
+  {
+    "id": "nats",
+    "name": "NATS Server",
+    "version": "2.10.24",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "nats",
+    "description": "Lightweight high-performance message broker (pub/sub, streaming)",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/nats-io/nats-server/releases/latest/download/nats-server-v2.10.24-windows-amd64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\nats"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\nats"
+      }
+    ],
+    "shims": [
+      {
+        "name": "nats-server",
+        "target": "{{TAURIO_ROOT}}\\bin\\nats\\nats-server-v2.10.24-windows-amd64\\nats-server.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\nats\\nats-server-v2.10.24-windows-amd64\\nats-server.exe",
+        "args": [
+          "-js",
+          "-sd",
+          "{{TAURIO_ROOT}}\\data\\nats"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\nats",
+        "label": "Start NATS"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "4222"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "messaging",
+      "backend"
+    ]
+  },
+  {
+    "id": "lazygit",
+    "name": "lazygit",
+    "version": "0.44.1",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "git",
+    "description": "Terminal UI for Git with visual commit graph and interactive rebase",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_0.44.1_Windows_x86_64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\lazygit"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\lazygit"
+      }
+    ],
+    "shims": [
+      {
+        "name": "lazygit",
+        "target": "{{TAURIO_ROOT}}\\bin\\lazygit\\lazygit.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "version-control",
+      "cli",
+      "gui"
+    ]
+  },
+  {
+    "id": "bun",
+    "name": "Bun",
+    "version": "1.3.9",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "bun",
+    "description": "Fast all-in-one JavaScript runtime, bundler, transpiler, and package manager",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.9/bun-windows-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\bun"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\bun"
+      }
+    ],
+    "shims": [
+      {
+        "name": "bun",
+        "target": "{{TAURIO_ROOT}}\\bin\\bun\\bun-windows-x64\\bun.exe"
+      },
+      {
+        "name": "bunx",
+        "target": "{{TAURIO_ROOT}}\\bin\\bun\\bun-windows-x64\\bun.exe",
+        "args": [
+          "x"
+        ]
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "javascript",
+      "runtime",
+      "package-manager"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "node",
+        "nextjs",
+        "nuxt",
+        "react",
+        "vue",
+        "angular",
+        "sveltekit",
+        "astro",
+        "remix",
+        "gatsby",
+        "express",
+        "nestjs",
+        "vite"
+      ],
+      "companion_packages": [],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "adminer",
+    "name": "Adminer",
+    "version": "5.4.2",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "database",
+    "description": "Single-file PHP database manager supporting MySQL, PostgreSQL, SQLite, and more",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/vrana/adminer/releases/download/v5.4.2/adminer-5.4.2.php",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\adminer\\adminer.php"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\adminer"
+      }
+    ],
+    "shims": [],
+    "commands": {
+      "start": {
+        "command": "php.exe",
+        "args": [
+          "-S",
+          "127.0.0.1:8080",
+          "-t",
+          "{{TAURIO_ROOT}}\\bin\\adminer"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\adminer",
+        "label": "Start Adminer"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "open-browser",
+          "label": "Open in Browser",
+          "command": "cmd.exe",
+          "args": [
+            "/c",
+            "start",
+            "http://127.0.0.1:8080/adminer.php"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "8080"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Access Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\adminer.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "database",
+      "gui",
+      "php",
+      "sql"
+    ]
+  },
+  {
+    "id": "rabbitmq",
+    "name": "RabbitMQ",
+    "version": "4.2.3",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "rabbitmq",
+    "description": "Open-source message broker supporting AMQP, MQTT, and STOMP protocols",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/rabbitmq/rabbitmq-server/releases/download/v4.2.3/rabbitmq-server-windows-4.2.3.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\rabbitmq"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\rabbitmq"
+      }
+    ],
+    "shims": [
+      {
+        "name": "rabbitmqctl",
+        "target": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3\\sbin\\rabbitmqctl.bat"
+      },
+      {
+        "name": "rabbitmq-plugins",
+        "target": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3\\sbin\\rabbitmq-plugins.bat"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3\\sbin\\rabbitmq-server.bat",
+        "args": [
+          "-detached"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3",
+        "label": "Start RabbitMQ"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3\\sbin\\rabbitmqctl.bat",
+        "args": [
+          "stop"
+        ],
+        "working_dir": null,
+        "label": "Stop RabbitMQ"
+      },
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "enable-management",
+          "label": "Enable Management UI",
+          "command": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3\\sbin\\rabbitmq-plugins.bat",
+          "args": [
+            "enable",
+            "rabbitmq_management"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "AMQP Port",
+          "type": "number",
+          "default": "5672"
+        },
+        {
+          "key": "management_port",
+          "label": "Management Port",
+          "type": "number",
+          "default": "15672"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Server Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\rabbitmq.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "list-queues",
+        "label": "List Queues",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3\\sbin\\rabbitmqctl.bat",
+        "args": [
+          "list_queues"
+        ],
+        "params": [],
+        "confirm": false
+      }
+    ],
+    "tags": [
+      "messaging",
+      "backend"
+    ]
+  },
+  {
+    "id": "soketi",
+    "name": "Soketi",
+    "version": "1.6.1",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "websocket",
+    "description": "Fast WebSocket server compatible with Pusher protocols, ideal for Laravel Broadcasting",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/soketi/soketi/releases/download/1.6.1/soketi-1.6.1-win-x64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\soketi"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\soketi"
+      }
+    ],
+    "shims": [
+      {
+        "name": "soketi",
+        "target": "{{TAURIO_ROOT}}\\bin\\soketi\\soketi.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\soketi\\soketi.exe",
+        "args": [
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\soketi",
+        "label": "Start Soketi"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "WebSocket Port",
+          "type": "number",
+          "default": "6001"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "websocket",
+      "backend",
+      "laravel"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "laravel"
+      ],
+      "companion_packages": [
+        "redis"
+      ],
+      "companion_tools": []
+    }
+  },
+  {
+    "id": "traefik",
+    "name": "Traefik",
+    "version": "3.6.7",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "traefik",
+    "description": "Modern HTTP reverse proxy and load balancer with automatic HTTPS and service discovery",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/traefik/traefik/releases/download/v3.6.7/traefik_v3.6.7_windows_amd64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\traefik"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\traefik"
+      }
+    ],
+    "shims": [
+      {
+        "name": "traefik",
+        "target": "{{TAURIO_ROOT}}\\bin\\traefik\\traefik.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\traefik\\traefik.exe",
+        "args": [
+          "--configFile={{TAURIO_ROOT}}\\data\\traefik\\traefik.yml"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\traefik",
+        "label": "Start Traefik"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": [
+        {
+          "id": "open-dashboard",
+          "label": "Open Dashboard",
+          "command": "cmd.exe",
+          "args": [
+            "/c",
+            "start",
+            "http://127.0.0.1:8080/dashboard/"
+          ],
+          "params": []
+        }
+      ]
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "http_port",
+          "label": "HTTP Port",
+          "type": "number",
+          "default": "80"
+        },
+        {
+          "key": "https_port",
+          "label": "HTTPS Port",
+          "type": "number",
+          "default": "443"
+        },
+        {
+          "key": "dashboard_port",
+          "label": "Dashboard Port",
+          "type": "number",
+          "default": "8080"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "Configuration",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\traefik\\traefik.yml",
+            "separator": ":",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Access Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\traefik.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "reverse-proxy",
+      "infrastructure"
+    ]
+  },
+  {
+    "id": "caddy",
+    "name": "Caddy",
+    "version": "2.10.2",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "caddy",
+    "description": "Fast web server with automatic HTTPS, reverse proxy, and simple Caddyfile configuration",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/caddyserver/caddy/releases/download/v2.10.2/caddy_2.10.2_windows_amd64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\caddy"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\caddy"
+      }
+    ],
+    "shims": [
+      {
+        "name": "caddy",
+        "target": "{{TAURIO_ROOT}}\\bin\\caddy\\caddy.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\caddy\\caddy.exe",
+        "args": [
+          "run",
+          "--config",
+          "{{TAURIO_ROOT}}\\data\\caddy\\Caddyfile"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\caddy",
+        "label": "Start Caddy"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\caddy\\caddy.exe",
+        "args": [
+          "stop"
+        ],
+        "working_dir": null,
+        "label": "Stop Caddy"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\caddy\\caddy.exe",
+        "args": [
+          "reload",
+          "--config",
+          "{{TAURIO_ROOT}}\\data\\caddy\\Caddyfile"
+        ],
+        "working_dir": null,
+        "label": "Reload Caddy"
+      },
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "http_port",
+          "label": "HTTP Port",
+          "type": "number",
+          "default": "80"
+        },
+        {
+          "key": "https_port",
+          "label": "HTTPS Port",
+          "type": "number",
+          "default": "443"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "Caddyfile",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\caddy\\Caddyfile",
+            "separator": " ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Access Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\caddy.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "web-server",
+      "reverse-proxy",
+      "infrastructure"
+    ]
+  },
+  {
+    "id": "headscale",
+    "name": "HeadScale",
+    "version": "0.28.0",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "network",
+    "description": "Self-hosted open-source implementation of the Tailscale control server",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/juanfont/headscale/releases/download/v0.28.0/headscale_0.28.0_windows_amd64.exe",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "copy_source",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\headscale\\headscale.exe"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\headscale"
+      }
+    ],
+    "shims": [
+      {
+        "name": "headscale",
+        "target": "{{TAURIO_ROOT}}\\bin\\headscale\\headscale.exe"
+      }
+    ],
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\headscale\\headscale.exe",
+        "args": [
+          "serve",
+          "--config",
+          "{{TAURIO_ROOT}}\\data\\headscale\\config.yaml"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\headscale",
+        "label": "Start HeadScale"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "listen_addr",
+          "label": "Listen Address",
+          "type": "text",
+          "default": "127.0.0.1:8080"
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "networking",
+      "vpn",
+      "infrastructure"
+    ]
+  },
+  {
+    "id": "sqlitebrowser",
+    "name": "DB Browser for SQLite",
+    "version": "3.13.1",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "database",
+    "description": "Visual open-source tool for creating, designing, and editing SQLite database files",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://download.sqlitebrowser.org/DB.Browser.for.SQLite-v3.13.1-win64.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser"
+      }
+    ],
+    "shims": [
+      {
+        "name": "sqlitebrowser",
+        "target": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser\\DB Browser for SQLite\\DB Browser for SQLite.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "database",
+      "gui",
+      "sqlite"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\binsqlitebrowserDB Browser for SQLiteDB Browser for SQLite.exe",
+        "args": [],
+        "label": "Open DB Browser for SQLite"
+      }
+    }
+  },
+  {
+    "id": "wezterm",
+    "name": "WezTerm",
+    "version": "20240203",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "terminal",
+    "description": "GPU-accelerated cross-platform terminal emulator and multiplexer with rich features",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/wez/wezterm/releases/download/20240203-110809-5046fc22/WezTerm-windows-20240203-110809-5046fc22.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\wezterm"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\wezterm"
+      }
+    ],
+    "shims": [
+      {
+        "name": "wezterm",
+        "target": "{{TAURIO_ROOT}}\\bin\\wezterm\\WezTerm-windows-20240203-110809-5046fc22\\wezterm.exe"
+      },
+      {
+        "name": "wezterm-gui",
+        "target": "{{TAURIO_ROOT}}\\bin\\wezterm\\WezTerm-windows-20240203-110809-5046fc22\\wezterm-gui.exe"
+      }
+    ],
+    "scripts": [],
+    "tags": [
+      "terminal",
+      "gui"
+    ],
+    "commands": {
+      "start": {
+        "command": "C:Taurio\binweztermWezTerm-windows-20240203-110809-5046fc22wezterm-gui.exe",
+        "args": [],
+        "label": "Open WezTerm"
+      }
+    }
+  },
+  {
+    "id": "win-acme",
+    "name": "win-acme",
+    "version": "2.2.9.1",
+    "category": "tool",
+    "preselect_default": false,
+    "icon": "ssl",
+    "description": "ACME client for Windows - automates Let's Encrypt SSL certificate issuance and renewal",
+    "sources": [
+      {
+        "source_type": "url",
+        "url": "https://github.com/win-acme/win-acme/releases/download/v2.2.9.1/win-acme.v2.2.9.1707.x64.pluggable.zip",
+        "sha256": null
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\win-acme"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\win-acme"
+      }
+    ],
+    "shims": [
+      {
+        "name": "wacs",
+        "target": "{{TAURIO_ROOT}}\\bin\\win-acme\\wacs.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "acme_client",
+      "app_config": {
+        "client_path": "{{TAURIO_ROOT}}\\bin\\win-acme\\wacs.exe"
+      },
+      "config_files": []
+    },
+    "scripts": [
+      {
+        "id": "new-cert",
+        "label": "Request New Certificate",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\win-acme\\wacs.exe",
+        "args": [
+          "--target",
+          "manual",
+          "--host",
+          "{{domain}}",
+          "--validation",
+          "selfhosting",
+          "--store",
+          "pemfiles",
+          "--pemfilespath",
+          "{{TAURIO_ROOT}}\\data\\certs"
+        ],
+        "params": [
+          {
+            "name": "domain",
+            "label": "Domain",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Request certificate for {{domain}}?"
+      },
+      {
+        "id": "list-certs",
+        "label": "List Certificates",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\win-acme\\wacs.exe",
+        "args": [
+          "--list"
+        ],
+        "params": [],
+        "confirm": false
+      }
+    ],
+    "tags": [
+      "ssl",
+      "security",
+      "cli",
+      "infrastructure"
+    ]
+  }
+]
