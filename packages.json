@@ -1595,7 +1595,7 @@
     "sources": [
       {
         "source_type": "url",
-        "url": "https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.41-winx64.zip",
+        "url": "https://cdn.mysql.com/archives/mysql-8.0/mysql-8.0.41-winx64.zip",
         "sha256": null
       }
     ],
@@ -3676,7 +3676,7 @@
     "sources": [
       {
         "source_type": "url",
-        "url": "https://dl.filippo.io/mkcert/latest?for=windows/amd64",
+        "url": "https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-windows-amd64.exe",
         "sha256": null
       }
     ],
