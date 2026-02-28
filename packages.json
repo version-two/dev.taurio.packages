@@ -3710,7 +3710,8 @@
         ],
         "params": [],
         "confirm": true,
-        "confirm_message": "Install mkcert's local CA into the system trust store?"
+        "confirm_message": "Install mkcert's local CA into the system trust store?",
+        "elevated": true
       },
       {
         "id": "create-cert",
