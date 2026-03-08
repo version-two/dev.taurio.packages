@@ -495,57 +495,57 @@
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64"
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64"
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64"
       }
     ],
     "shims": [
       {
         "name": "php",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.exe"
       },
       {
         "name": "php8.5",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.exe"
       },
       {
         "name": "php-cgi",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe"
       },
       {
         "name": "php-cgi8.5",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe"
       },
       {
         "name": "phpdbg",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\phpdbg.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\phpdbg.exe"
       },
       {
         "name": "pear",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\pear.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\pear.bat"
       },
       {
         "name": "pecl",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\pecl.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\pecl.bat"
       }
     ],
     "config": {
       "tool_type": "php_runtime",
       "app_config": {
         "version": "8.5",
-        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.exe",
-        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe",
         "fcgi_port": 9004,
         "fcgi_mode": "pool"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.ini",
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.ini",
           "separator": "=",
           "comment_prefix": ";",
           "settings": {
@@ -571,13 +571,13 @@
             "opcache.validate_timestamps": "1",
             "opcache.revalidate_freq": "0",
             "opcache.save_comments": "1",
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\ext",
             "cgi.fix_pathinfo": "1",
             "session.save_handler": "files",
             "session.gc_maxlifetime": "1440"
           },
           "install_overrides": {
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\ext",
             "date.timezone": "UTC",
             "opcache.enable": "1"
           },
@@ -606,7 +606,7 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php-cgi.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe",
         "args": [
           "-b",
           "127.0.0.1:9004"
@@ -655,7 +655,7 @@
           "type": "config-editor",
           "label": "php.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.28-nts-Win32-vs17-x64\\php.ini",
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.ini",
             "separator": "=",
             "comment_prefix": ";"
           }
@@ -3159,7 +3159,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\bin\notepadpp\notepad++.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\notepadpp\\notepad++.exe",
         "args": [],
         "label": "Open Notepad++"
       }
@@ -3207,7 +3207,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\bin\tiny-rdmTinyRDM.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\tiny-rdm\\TinyRDM.exe",
         "args": [],
         "label": "Open Tiny RDM"
       }
@@ -3255,7 +3255,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\binheidisqlheidisql.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\heidisql\\heidisql.exe",
         "args": [],
         "label": "Open HeidiSQL"
       }
@@ -3302,7 +3302,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\bin\tabbyTabby.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\tabby\\Tabby.exe",
         "args": [],
         "label": "Open Tabby"
       }
@@ -3350,7 +3350,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\bindbeaverdbeaverdbeaver.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\dbeaver\\dbeaver\\dbeaver.exe",
         "args": [],
         "label": "Open DBeaver"
       }
@@ -3659,7 +3659,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\bin\brunoBruno.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\bruno\\Bruno.exe",
         "args": [],
         "label": "Open Bruno"
       }
@@ -4910,7 +4910,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\binsqlitebrowserDB Browser for SQLiteDB Browser for SQLite.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser\\DB Browser for SQLite\\DB Browser for SQLite.exe",
         "args": [],
         "label": "Open DB Browser for SQLite"
       }
@@ -4961,7 +4961,7 @@
     ],
     "commands": {
       "start": {
-        "command": "C:Taurio\binweztermWezTerm-windows-20240203-110809-5046fc22wezterm-gui.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\wezterm\\WezTerm-windows-20240203-110809-5046fc22\\wezterm-gui.exe",
         "args": [],
         "label": "Open WezTerm"
       }
