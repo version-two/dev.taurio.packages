@@ -39,73 +39,76 @@
   {
     "id": "php-8.3",
     "name": "PHP 8.3 (NTS x64)",
-    "version": "8.3.28",
+    "version": "8.3.x",
     "category": "service",
     "preselect_default": false,
     "icon": "php",
     "description": "PHP 8.3 runtime (non-thread-safe, x64)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://windows.php.net/downloads/releases/archives/php-8.3.28-nts-Win32-vs16-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "shivammathur/php-builder-windows",
+        "tag": "php8.3",
+        "asset_pattern": "^php-\\d+\\.\\d+\\.\\d+-nts-Win32-vs16-x64\\.zip$"
       }
     ],
     "install": [
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64"
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\8.3"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64"
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\8.3"
       }
     ],
     "shims": [
       {
         "name": "php",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php.exe"
       },
       {
         "name": "php8.3",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php.exe"
       },
       {
         "name": "php-cgi",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php-cgi.exe"
       },
       {
         "name": "php-cgi8.3",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php-cgi.exe"
       },
       {
         "name": "phpdbg",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\phpdbg.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\phpdbg.exe"
       },
       {
         "name": "pear",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\pear.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\pear.bat"
       },
       {
         "name": "pecl",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\pecl.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\pecl.bat"
       }
     ],
     "config": {
       "tool_type": "php_runtime",
       "app_config": {
         "version": "8.3",
-        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.exe",
-        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php-cgi.exe",
         "fcgi_port": 9000,
         "fcgi_mode": "pool"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.ini",
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php.ini",
           "separator": "=",
           "comment_prefix": ";",
           "settings": {
@@ -131,13 +134,13 @@
             "opcache.validate_timestamps": "1",
             "opcache.revalidate_freq": "0",
             "opcache.save_comments": "1",
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\ext",
             "cgi.fix_pathinfo": "1",
             "session.save_handler": "files",
             "session.gc_maxlifetime": "1440"
           },
           "install_overrides": {
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\ext",
             "date.timezone": "UTC",
             "opcache.enable": "1"
           },
@@ -166,7 +169,7 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php-cgi.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php-cgi.exe",
         "args": [
           "-b",
           "127.0.0.1:9000"
@@ -215,7 +218,7 @@
           "type": "config-editor",
           "label": "php.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.3.28-nts-Win32-vs16-x64\\php.ini",
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\8.3\\php.ini",
             "separator": "=",
             "comment_prefix": ";"
           }
@@ -269,53 +272,56 @@
   {
     "id": "php-8.4",
     "name": "PHP 8.4 (NTS x64)",
-    "version": "8.4.16",
+    "version": "8.4.x",
     "category": "service",
     "preselect_default": true,
     "icon": "php",
     "description": "PHP 8.4 runtime (non-thread-safe, x64)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://windows.php.net/downloads/releases/php-8.4.16-nts-Win32-vs17-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "shivammathur/php-builder-windows",
+        "tag": "php8.4",
+        "asset_pattern": "^php-\\d+\\.\\d+\\.\\d+-nts-Win32-vs17-x64\\.zip$"
       }
     ],
     "install": [
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64"
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\8.4"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64"
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\8.4"
       }
     ],
     "shims": [
       {
         "name": "php8.4",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php.exe"
       },
       {
         "name": "php-cgi8.4",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php-cgi.exe"
       }
     ],
     "config": {
       "tool_type": "php_runtime",
       "app_config": {
         "version": "8.4",
-        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
-        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php-cgi.exe",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php-cgi.exe",
         "fcgi_port": 9001,
         "fcgi_mode": "pool"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.ini",
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php.ini",
           "separator": "=",
           "comment_prefix": ";",
           "settings": {
@@ -341,13 +347,13 @@
             "opcache.validate_timestamps": "1",
             "opcache.revalidate_freq": "0",
             "opcache.save_comments": "1",
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\ext",
             "cgi.fix_pathinfo": "1",
             "session.save_handler": "files",
             "session.gc_maxlifetime": "1440"
           },
           "install_overrides": {
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\ext",
             "date.timezone": "UTC",
             "opcache.enable": "1"
           },
@@ -376,7 +382,7 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php-cgi.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php-cgi.exe",
         "args": [
           "-b",
           "127.0.0.1:9001"
@@ -425,7 +431,7 @@
           "type": "config-editor",
           "label": "php.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.ini",
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php.ini",
             "separator": "=",
             "comment_prefix": ";"
           }
@@ -479,73 +485,76 @@
   {
     "id": "php-8.5",
     "name": "PHP 8.5 (NTS x64)",
-    "version": "8.5.1",
+    "version": "8.5.x",
     "category": "service",
     "preselect_default": false,
     "icon": "php",
     "description": "PHP 8.5 runtime (non-thread-safe, x64)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://windows.php.net/downloads/releases/php-8.5.1-nts-Win32-vs17-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "shivammathur/php-builder-windows",
+        "tag": "php8.5",
+        "asset_pattern": "^php-\\d+\\.\\d+\\.\\d+-nts-Win32-vs17-x64\\.zip$"
       }
     ],
     "install": [
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64"
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\8.5"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64"
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\8.5"
       }
     ],
     "shims": [
       {
         "name": "php",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php.exe"
       },
       {
         "name": "php8.5",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php.exe"
       },
       {
         "name": "php-cgi",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php-cgi.exe"
       },
       {
         "name": "php-cgi8.5",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php-cgi.exe"
       },
       {
         "name": "phpdbg",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\phpdbg.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\phpdbg.exe"
       },
       {
         "name": "pear",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\pear.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\pear.bat"
       },
       {
         "name": "pecl",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\pecl.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\pecl.bat"
       }
     ],
     "config": {
       "tool_type": "php_runtime",
       "app_config": {
         "version": "8.5",
-        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.exe",
-        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php-cgi.exe",
         "fcgi_port": 9004,
         "fcgi_mode": "pool"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.ini",
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php.ini",
           "separator": "=",
           "comment_prefix": ";",
           "settings": {
@@ -571,13 +580,13 @@
             "opcache.validate_timestamps": "1",
             "opcache.revalidate_freq": "0",
             "opcache.save_comments": "1",
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\ext",
             "cgi.fix_pathinfo": "1",
             "session.save_handler": "files",
             "session.gc_maxlifetime": "1440"
           },
           "install_overrides": {
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\ext",
             "date.timezone": "UTC",
             "opcache.enable": "1"
           },
@@ -606,7 +615,7 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php-cgi.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php-cgi.exe",
         "args": [
           "-b",
           "127.0.0.1:9004"
@@ -655,7 +664,7 @@
           "type": "config-editor",
           "label": "php.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-8.5.1-nts-Win32-vs17-x64\\php.ini",
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\8.5\\php.ini",
             "separator": "=",
             "comment_prefix": ";"
           }
@@ -716,66 +725,69 @@
     "description": "PHP 7.4 runtime (non-thread-safe, x64)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://windows.php.net/downloads/releases/archives/php-7.4.33-nts-Win32-vc15-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "shivammathur/php-builder-windows",
+        "tag": "php7.4",
+        "asset_pattern": "^php-\\d+\\.\\d+\\.\\d+-nts-Win32-vc15-x64\\.zip$"
       }
     ],
     "install": [
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64"
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\7.4"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64"
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\7.4"
       }
     ],
     "shims": [
       {
         "name": "php",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php.exe"
       },
       {
         "name": "php7.4",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php.exe"
       },
       {
         "name": "php-cgi",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php-cgi.exe"
       },
       {
         "name": "php-cgi7.4",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php-cgi.exe"
       },
       {
         "name": "phpdbg",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\phpdbg.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\phpdbg.exe"
       },
       {
         "name": "pear",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\pear.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\pear.bat"
       },
       {
         "name": "pecl",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\pecl.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\pecl.bat"
       }
     ],
     "config": {
       "tool_type": "php_runtime",
       "app_config": {
         "version": "7.4",
-        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.exe",
-        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php-cgi.exe",
         "fcgi_port": 9003,
         "fcgi_mode": "pool"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.ini",
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php.ini",
           "separator": "=",
           "comment_prefix": ";",
           "settings": {
@@ -801,13 +813,13 @@
             "opcache.validate_timestamps": "1",
             "opcache.revalidate_freq": "0",
             "opcache.save_comments": "1",
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\ext",
             "cgi.fix_pathinfo": "1",
             "session.save_handler": "files",
             "session.gc_maxlifetime": "1440"
           },
           "install_overrides": {
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\ext",
             "date.timezone": "UTC",
             "opcache.enable": "1"
           },
@@ -836,7 +848,7 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php-cgi.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php-cgi.exe",
         "args": [
           "-b",
           "127.0.0.1:9003"
@@ -885,7 +897,7 @@
           "type": "config-editor",
           "label": "php.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-7.4.28-nts-Win32-vc15-x64\\php.ini",
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\7.4\\php.ini",
             "separator": "=",
             "comment_prefix": ";"
           }
@@ -946,66 +958,69 @@
     "description": "PHP 7.3 runtime (non-thread-safe, x64)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://windows.php.net/downloads/releases/archives/php-7.3.33-nts-Win32-VC15-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "shivammathur/php-builder-windows",
+        "tag": "php7.3",
+        "asset_pattern": "^php-\\d+\\.\\d+\\.\\d+-nts-Win32-VC15-x64\\.zip$"
       }
     ],
     "install": [
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64"
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\7.3"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64"
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\7.3"
       }
     ],
     "shims": [
       {
         "name": "php",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php.exe"
       },
       {
         "name": "php7.3",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php.exe"
       },
       {
         "name": "php-cgi",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php-cgi.exe"
       },
       {
         "name": "php-cgi7.3",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php-cgi.exe"
       },
       {
         "name": "phpdbg",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\phpdbg.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\phpdbg.exe"
       },
       {
         "name": "pear",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\pear.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\pear.bat"
       },
       {
         "name": "pecl",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\pecl.bat"
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\pecl.bat"
       }
     ],
     "config": {
       "tool_type": "php_runtime",
       "app_config": {
         "version": "7.3",
-        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.exe",
-        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php-cgi.exe",
         "fcgi_port": 9002,
         "fcgi_mode": "pool"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.ini",
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php.ini",
           "separator": "=",
           "comment_prefix": ";",
           "settings": {
@@ -1031,13 +1046,13 @@
             "opcache.validate_timestamps": "1",
             "opcache.revalidate_freq": "0",
             "opcache.save_comments": "1",
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\ext",
             "cgi.fix_pathinfo": "1",
             "session.save_handler": "files",
             "session.gc_maxlifetime": "1440"
           },
           "install_overrides": {
-            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\ext",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\ext",
             "date.timezone": "UTC",
             "opcache.enable": "1"
           },
@@ -1066,7 +1081,7 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php-cgi.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php-cgi.exe",
         "args": [
           "-b",
           "127.0.0.1:9002"
@@ -1115,7 +1130,7 @@
           "type": "config-editor",
           "label": "php.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\bin\\php\\php-7.3.28-nts-Win32-VC15-x64\\php.ini",
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\7.3\\php.ini",
             "separator": "=",
             "comment_prefix": ";"
           }
@@ -2125,9 +2140,12 @@
     "description": "In-memory data structure store",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/tporadowski/redis/releases/download/v5.0.14.1/Redis-x64-5.0.14.1.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "tporadowski/redis",
+        "tag": "latest",
+        "asset_pattern": "^Redis-x64-\\d+(\\.\\d+)+\\.zip$"
       }
     ],
     "install": [
@@ -2299,78 +2317,82 @@
   {
     "id": "postgresql",
     "name": "PostgreSQL",
-    "version": "17.2",
+    "version": "18.x",
     "category": "service",
     "preselect_default": false,
     "icon": "postgresql",
     "description": "Advanced open-source relational database",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://get.enterprisedb.com/postgresql/postgresql-17.2-1-windows-x64-binaries.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "theseus-rs/postgresql-binaries",
+        "tag": "latest",
+        "asset_pattern": "^postgresql-\\d+\\.\\d+\\.\\d+-x86_64-pc-windows-msvc\\.zip$"
       }
     ],
     "install": [
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\postgresql"
+        "to": "{{TAURIO_ROOT}}\\bin\\postgresql",
+        "strip_top_level": true
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\postgresql\\postgresql-17.2"
+        "path": "{{TAURIO_ROOT}}\\bin\\postgresql"
       }
     ],
     "shims": [
       {
         "name": "psql",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\psql.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\psql.exe"
       },
       {
         "name": "pg_dump",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_dump.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_dump.exe"
       },
       {
         "name": "pg_restore",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_restore.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_restore.exe"
       },
       {
         "name": "pg_ctl",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe"
       },
       {
         "name": "createdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\createdb.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\createdb.exe"
       },
       {
         "name": "dropdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\dropdb.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\dropdb.exe"
       },
       {
         "name": "createuser",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\createuser.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\createuser.exe"
       },
       {
         "name": "pg_isready",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_isready.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_isready.exe"
       },
       {
         "name": "initdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\initdb.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\initdb.exe"
       },
       {
         "name": "vacuumdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\vacuumdb.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\vacuumdb.exe"
       }
     ],
     "config": {
       "tool_type": "mysql",
       "app_config": {
         "service_name": "postgresql",
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
         "args": [
           "-D",
           "{{TAURIO_ROOT}}\\data\\postgresql",
@@ -2378,7 +2400,7 @@
           "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
           "start"
         ],
-        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql"
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql"
       },
       "config_files": [
         {
@@ -2428,7 +2450,7 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
         "args": [
           "-D",
           "{{TAURIO_ROOT}}\\data\\postgresql",
@@ -2436,11 +2458,11 @@
           "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
           "start"
         ],
-        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql",
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql",
         "label": "Start PostgreSQL"
       },
       "stop": {
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
         "args": [
           "-D",
           "{{TAURIO_ROOT}}\\data\\postgresql",
@@ -2449,7 +2471,7 @@
         "label": "Stop PostgreSQL"
       },
       "reload": {
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
         "args": [
           "-D",
           "{{TAURIO_ROOT}}\\data\\postgresql",
@@ -2491,7 +2513,7 @@
             "engine": "postgresql",
             "host": "127.0.0.1",
             "port_override_key": "port",
-            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\psql.exe"
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\psql.exe"
           }
         },
         {
@@ -2510,7 +2532,7 @@
         "id": "create-database",
         "label": "Create Database",
         "type": "cli",
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\createdb.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\createdb.exe",
         "args": [
           "{{db_name}}"
         ],
@@ -2529,7 +2551,7 @@
         "id": "init-db",
         "label": "Initialize Data Directory",
         "type": "cli",
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\pgsql\\bin\\initdb.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\initdb.exe",
         "args": [
           "-D",
           "{{TAURIO_ROOT}}\\data\\postgresql",
@@ -2825,9 +2847,12 @@
     "description": "Email testing tool with SMTP server and web UI",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/axllent/mailpit/releases/download/v1.22.3/mailpit-windows-amd64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "axllent/mailpit",
+        "tag": "latest",
+        "asset_pattern": "^mailpit-windows-amd64\\.zip$"
       }
     ],
     "install": [
@@ -2934,7 +2959,7 @@
     "sources": [
       {
         "source_type": "url",
-        "url": "https://getcomposer.org/download/2.8.5/composer.phar",
+        "url": "https://github.com/composer/composer/releases/latest/download/composer.phar",
         "sha256": null
       }
     ],
@@ -2954,7 +2979,7 @@
     "shims": [
       {
         "name": "composer",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php.exe",
         "args": [
           "{{TAURIO_ROOT}}\\bin\\composer\\composer.phar"
         ]
@@ -3066,9 +3091,12 @@
     "description": "Fast, reliable JavaScript package manager",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-1.22.22.js",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "yarnpkg/yarn",
+        "tag": "latest",
+        "asset_pattern": "^yarn-\\d+(\\.\\d+)+\\.js$"
       }
     ],
     "install": [
@@ -3128,9 +3156,12 @@
     "description": "Lightweight text editor (portable)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.7.5/npp.8.7.5.portable.x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "notepad-plus-plus/notepad-plus-plus",
+        "tag": "latest",
+        "asset_pattern": "^npp\\.\\d+(\\.\\d+)+\\.portable\\.x64\\.zip$"
       }
     ],
     "install": [
@@ -3175,9 +3206,12 @@
     "description": "Redis desktop manager GUI",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/tiny-craft/tiny-rdm/releases/download/v1.1.4/TinyRDM_Windows_x64_portable.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "tiny-craft/tiny-rdm",
+        "tag": "latest",
+        "asset_pattern": "^TinyRDM_Windows_x64_portable\\.zip$"
       }
     ],
     "install": [
@@ -3216,16 +3250,19 @@
   {
     "id": "heidisql",
     "name": "HeidiSQL",
-    "version": "12.8",
+    "version": "12.x",
     "category": "tool",
     "preselect_default": true,
     "icon": "heidisql",
     "description": "Database management GUI for MySQL, MariaDB, PostgreSQL",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://www.heidisql.com/downloads/releases/HeidiSQL_12.8_64_Portable.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "HeidiSQL/HeidiSQL",
+        "tag": "latest",
+        "asset_pattern": "^HeidiSQL_\\d+(\\.\\d+)+_64_Portable\\.zip$"
       }
     ],
     "install": [
@@ -3271,9 +3308,12 @@
     "description": "Modern terminal emulator (portable)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/Eugeny/tabby/releases/download/v1.0.215/tabby-1.0.215-portable-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "Eugeny/tabby",
+        "tag": "latest",
+        "asset_pattern": "^tabby-\\d+(\\.\\d+)+-portable-x64\\.zip$"
       }
     ],
     "install": [
@@ -3311,16 +3351,19 @@
   {
     "id": "dbeaver",
     "name": "DBeaver Community",
-    "version": "25.0.0",
+    "version": "26.x",
     "category": "tool",
     "preselect_default": false,
     "icon": "dbeaver",
     "description": "Universal database GUI for MySQL, PostgreSQL, SQLite, MongoDB and 80+ databases",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://dbeaver.io/files/dbeaver-ce-latest-win32.win32.x86_64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "dbeaver/dbeaver",
+        "tag": "latest",
+        "asset_pattern": "^dbeaver-ce-\\d+(\\.\\d+)+-windows-x86_64\\.zip$"
       }
     ],
     "install": [
@@ -3544,9 +3587,12 @@
     "description": "High-performance distributed memory caching system",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/jefyt/memcached-windows/releases/download/1.6.8_mingw/memcached-1.6.8-win64-mingw.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "jefyt/memcached-windows",
+        "tag": "latest",
+        "asset_pattern": "^memcached-\\d+(\\.\\d+)+-win64-mingw\\.zip$"
       }
     ],
     "install": [
@@ -3675,9 +3721,12 @@
     "description": "Zero-config tool to create locally-trusted HTTPS development certificates",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-windows-amd64.exe",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "FiloSottile/mkcert",
+        "tag": "latest",
+        "asset_pattern": "^mkcert-v\\d+(\\.\\d+)+-windows-amd64\\.exe$"
       }
     ],
     "install": [
@@ -3893,7 +3942,7 @@
     "sources": [
       {
         "source_type": "url",
-        "url": "https://cs.symfony.com/download/php-cs-fixer-v3.phar",
+        "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/latest/download/php-cs-fixer.phar",
         "sha256": null
       }
     ],
@@ -3913,7 +3962,7 @@
     "shims": [
       {
         "name": "php-cs-fixer",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php.exe",
         "args": [
           "{{TAURIO_ROOT}}\\bin\\php-cs-fixer\\php-cs-fixer.phar"
         ]
@@ -3976,7 +4025,7 @@
     "shims": [
       {
         "name": "phpstan",
-        "target": "{{TAURIO_ROOT}}\\bin\\php\\php-8.4.16-nts-Win32-vs17-x64\\php.exe",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.4\\php.exe",
         "args": [
           "{{TAURIO_ROOT}}\\bin\\phpstan\\phpstan.phar"
         ]
@@ -4141,9 +4190,12 @@
     "description": "Lightweight high-performance message broker (pub/sub, streaming)",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/nats-io/nats-server/releases/latest/download/nats-server-v2.10.24-windows-amd64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "nats-io/nats-server",
+        "tag": "latest",
+        "asset_pattern": "^nats-server-v\\d+(\\.\\d+)+-windows-amd64\\.zip$"
       }
     ],
     "install": [
@@ -4206,9 +4258,12 @@
     "description": "Terminal UI for Git with visual commit graph and interactive rebase",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_0.44.1_Windows_x86_64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "jesseduffield/lazygit",
+        "tag": "latest",
+        "asset_pattern": "^lazygit_\\d+(\\.\\d+)+_Windows_x86_64\\.zip$"
       }
     ],
     "install": [
@@ -4247,9 +4302,12 @@
     "description": "Fast all-in-one JavaScript runtime, bundler, transpiler, and package manager",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.9/bun-windows-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "oven-sh/bun",
+        "tag": "latest",
+        "asset_pattern": "^bun-windows-x64\\.zip$"
       }
     ],
     "install": [
@@ -4314,9 +4372,12 @@
     "description": "Single-file PHP database manager supporting MySQL, PostgreSQL, SQLite, and more",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/vrana/adminer/releases/download/v5.4.2/adminer-5.4.2.php",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "vrana/adminer",
+        "tag": "latest",
+        "asset_pattern": "^adminer-\\d+(\\.\\d+)+\\.php$"
       }
     ],
     "install": [
@@ -4402,9 +4463,12 @@
     "description": "Open-source message broker supporting AMQP, MQTT, and STOMP protocols",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/rabbitmq/rabbitmq-server/releases/download/v4.2.3/rabbitmq-server-windows-4.2.3.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "rabbitmq/rabbitmq-server",
+        "tag": "latest",
+        "asset_pattern": "^rabbitmq-server-windows-\\d+(\\.\\d+)+\\.zip$"
       }
     ],
     "install": [
@@ -4518,9 +4582,12 @@
     "description": "Fast WebSocket server compatible with Pusher protocols, ideal for Laravel Broadcasting",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/soketi/soketi/releases/download/1.6.1/soketi-1.6.1-win-x64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "soketi/soketi",
+        "tag": "latest",
+        "asset_pattern": "^soketi-\\d+(\\.\\d+)+-win-x64\\.zip$"
       }
     ],
     "install": [
@@ -4591,9 +4658,12 @@
     "description": "Modern HTTP reverse proxy and load balancer with automatic HTTPS and service discovery",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/traefik/traefik/releases/download/v3.6.7/traefik_v3.6.7_windows_amd64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "traefik/traefik",
+        "tag": "latest",
+        "asset_pattern": "^traefik_v\\d+(\\.\\d+)+_windows_amd64\\.zip$"
       }
     ],
     "install": [
@@ -4701,9 +4771,12 @@
     "description": "Fast web server with automatic HTTPS, reverse proxy, and simple Caddyfile configuration",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/caddyserver/caddy/releases/download/v2.10.2/caddy_2.10.2_windows_amd64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "caddyserver/caddy",
+        "tag": "latest",
+        "asset_pattern": "^caddy_\\d+(\\.\\d+)+_windows_amd64\\.zip$"
       }
     ],
     "install": [
@@ -4812,9 +4885,12 @@
     "description": "Self-hosted open-source implementation of the Tailscale control server",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/juanfont/headscale/releases/download/v0.28.0/headscale_0.28.0_windows_amd64.exe",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "juanfont/headscale",
+        "tag": "latest",
+        "asset_pattern": "^headscale_\\d+(\\.\\d+)+_windows_amd64\\.exe$"
       }
     ],
     "install": [
@@ -4871,16 +4947,19 @@
   {
     "id": "sqlitebrowser",
     "name": "DB Browser for SQLite",
-    "version": "3.13.1",
+    "version": "3.x",
     "category": "tool",
     "preselect_default": false,
     "icon": "database",
     "description": "Visual open-source tool for creating, designing, and editing SQLite database files",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://download.sqlitebrowser.org/DB.Browser.for.SQLite-v3.13.1-win64.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "sqlitebrowser/sqlitebrowser",
+        "tag": "latest",
+        "asset_pattern": "^DB\\.Browser\\.for\\.SQLite-v\\d+\\.\\d+\\.\\d+-win64\\.zip$"
       }
     ],
     "install": [
@@ -4899,7 +4978,7 @@
     "shims": [
       {
         "name": "sqlitebrowser",
-        "target": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser\\DB Browser for SQLite\\DB Browser for SQLite.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser\\DB Browser for SQLite.exe"
       }
     ],
     "scripts": [],
@@ -4910,7 +4989,7 @@
     ],
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser\\DB Browser for SQLite\\DB Browser for SQLite.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\sqlitebrowser\\DB Browser for SQLite.exe",
         "args": [],
         "label": "Open DB Browser for SQLite"
       }
@@ -4926,9 +5005,12 @@
     "description": "GPU-accelerated cross-platform terminal emulator and multiplexer with rich features",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/wez/wezterm/releases/download/20240203-110809-5046fc22/WezTerm-windows-20240203-110809-5046fc22.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "wezterm/wezterm",
+        "tag": "latest",
+        "asset_pattern": "^WezTerm-windows-[0-9a-f-]+\\.zip$"
       }
     ],
     "install": [
@@ -4977,9 +5059,12 @@
     "description": "ACME client for Windows - automates Let's Encrypt SSL certificate issuance and renewal",
     "sources": [
       {
-        "source_type": "url",
-        "url": "https://github.com/win-acme/win-acme/releases/download/v2.2.9.1/win-acme.v2.2.9.1707.x64.pluggable.zip",
-        "sha256": null
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "win-acme/win-acme",
+        "tag": "latest",
+        "asset_pattern": "^win-acme\\.v\\d+(\\.\\d+)+\\.x64\\.pluggable\\.zip$"
       }
     ],
     "install": [
