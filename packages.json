@@ -1816,6 +1816,17 @@
         "to": "{{TAURIO_ROOT}}\\bin\\mysql"
       }
     ],
+    "post_install": [
+      {
+        "step_type": "run_command",
+        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
+        "args": [
+          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "--initialize-insecure"
+        ],
+        "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\mysql\\mysql"
+      }
+    ],
     "uninstall": [
       {
         "step_type": "remove_path",
@@ -1994,20 +2005,6 @@
             "file": "{{TAURIO_ROOT}}\\data\\logs\\mysql-error.log",
             "lines": 200
           }
-        },
-        {
-          "id": "actions",
-          "type": "action-list",
-          "label": "Actions",
-          "config": {
-            "actions": [
-              {
-                "id": "mysql-init",
-                "label": "Initialize Data Directory",
-                "script_id": "mysql-init-data"
-              }
-            ]
-          }
         }
       ]
     },
@@ -2055,19 +2052,6 @@
         ],
         "confirm": true,
         "confirm_message": "Drop database {{db_name}}? This cannot be undone!"
-      },
-      {
-        "id": "mysql-init-data",
-        "label": "Initialize Data Directory",
-        "type": "cli",
-        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
-        "args": [
-          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
-          "--initialize-insecure"
-        ],
-        "params": [],
-        "confirm": true,
-        "confirm_message": "Initialize MySQL data directory? Only do this for first-time setup."
       }
     ],
     "tags": [
@@ -2116,55 +2100,67 @@
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\mysql"
+        "to": "{{TAURIO_ROOT}}\\bin\\mariadb"
+      }
+    ],
+    "post_install": [
+      {
+        "step_type": "run_command",
+        "command": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb-install-db.exe",
+        "args": [
+          "--datadir={{TAURIO_ROOT}}\\data\\mariadb",
+          "--service=",
+          "--password="
+        ],
+        "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\mariadb\\mysql"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64"
+        "path": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64"
       }
     ],
     "shims": [
       {
         "name": "mariadb",
-        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb.exe"
       },
       {
         "name": "mariadb-dump",
-        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-dump.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb-dump.exe"
       },
       {
         "name": "mariadb-admin",
-        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-admin.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb-admin.exe"
       },
       {
         "name": "mariadb-import",
-        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-import.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb-import.exe"
       },
       {
         "name": "mariadb-check",
-        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-check.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb-check.exe"
       },
       {
         "name": "mariadbd",
-        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadbd.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadbd.exe"
       },
       {
         "name": "mariadb-show",
-        "target": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-show.exe"
+        "target": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb-show.exe"
       }
     ],
     "config": {
       "tool_type": "mysql",
       "app_config": {
         "service_name": "mariadb",
-        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
         "args": [
           "--defaults-file={{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
           "--console"
         ],
-        "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64"
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64"
       },
       "config_files": [
         {
@@ -2172,7 +2168,7 @@
           "separator": "=",
           "comment_prefix": "#",
           "settings": {
-            "basedir": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64",
+            "basedir": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64",
             "datadir": "{{TAURIO_ROOT}}\\data\\mariadb",
             "port": "3307",
             "socket": "{{TAURIO_ROOT}}\\tmp\\mariadb.sock",
@@ -2208,16 +2204,16 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
         "args": [
           "--defaults-file={{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
           "--console"
         ],
-        "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64",
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64",
         "label": "Start MariaDB"
       },
       "stop": {
-        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb-admin.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb-admin.exe",
         "args": [
           "-u",
           "root",
@@ -2260,7 +2256,7 @@
             "engine": "mysql",
             "host": "127.0.0.1",
             "port_override_key": "port",
-            "cli_path": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb.exe"
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb.exe"
           }
         },
         {
@@ -2279,7 +2275,7 @@
         "id": "create-database",
         "label": "Create Database",
         "type": "cli",
-        "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mariadb-11.7.2-winx64\\bin\\mariadb.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mariadb.exe",
         "args": [
           "-u",
           "root",
@@ -2510,20 +2506,20 @@
     }
   },
   {
-    "id": "postgresql",
-    "name": "PostgreSQL",
-    "version": "18.x",
+    "id": "postgres-14",
+    "name": "PostgreSQL 14",
+    "version": "14.x",
     "category": "service",
     "preselect_default": false,
     "icon": "postgresql",
-    "description": "Advanced open-source relational database",
+    "description": "PostgreSQL 14.x relational database",
     "sources": [
       {
         "source_type": "github_release_asset",
         "url": null,
         "sha256": null,
         "repo": "theseus-rs/postgresql-binaries",
-        "tag": "latest",
+        "tag_prefix": "14.",
         "asset_pattern": "^postgresql-\\d+\\.\\d+\\.\\d+-x86_64-pc-windows-msvc\\.zip$"
       }
     ],
@@ -2531,80 +2527,97 @@
       {
         "step_type": "extract",
         "from": "source:0",
-        "to": "{{TAURIO_ROOT}}\\bin\\postgresql",
+        "to": "{{TAURIO_ROOT}}\\bin\\postgres-14",
         "strip_top_level": true
+      }
+    ],
+    "post_install": [
+      {
+        "step_type": "run_command",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\initdb.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-14",
+          "-U",
+          "postgres",
+          "-E",
+          "UTF8",
+          "--auth-local=trust",
+          "--auth-host=trust"
+        ],
+        "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\postgres-14\\PG_VERSION"
       }
     ],
     "uninstall": [
       {
         "step_type": "remove_path",
-        "path": "{{TAURIO_ROOT}}\\bin\\postgresql"
+        "path": "{{TAURIO_ROOT}}\\bin\\postgres-14"
       }
     ],
     "shims": [
       {
-        "name": "psql",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\psql.exe"
+        "name": "psql14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\psql.exe"
       },
       {
-        "name": "pg_dump",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_dump.exe"
+        "name": "pg_dump14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_dump.exe"
       },
       {
-        "name": "pg_restore",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_restore.exe"
+        "name": "pg_restore14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_restore.exe"
       },
       {
-        "name": "pg_ctl",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe"
+        "name": "pg_ctl14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_ctl.exe"
       },
       {
-        "name": "createdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\createdb.exe"
+        "name": "createdb14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\createdb.exe"
       },
       {
-        "name": "dropdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\dropdb.exe"
+        "name": "dropdb14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\dropdb.exe"
       },
       {
-        "name": "createuser",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\createuser.exe"
+        "name": "createuser14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\createuser.exe"
       },
       {
-        "name": "pg_isready",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_isready.exe"
+        "name": "pg_isready14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_isready.exe"
       },
       {
-        "name": "initdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\initdb.exe"
+        "name": "initdb14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\initdb.exe"
       },
       {
-        "name": "vacuumdb",
-        "target": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\vacuumdb.exe"
+        "name": "vacuumdb14",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\vacuumdb.exe"
       }
     ],
     "config": {
-      "tool_type": "mysql",
+      "tool_type": "generic_service",
       "app_config": {
-        "service_name": "postgresql",
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
+        "service_name": "postgres-14",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_ctl.exe",
         "args": [
           "-D",
-          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "{{TAURIO_ROOT}}\\data\\postgres-14",
           "-l",
-          "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-14.log",
           "start"
         ],
-        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql"
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-14"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\data\\postgresql\\postgresql.conf",
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-14\\postgresql.conf",
           "separator": " = ",
           "comment_prefix": "#",
           "settings": {
             "listen_addresses": "'127.0.0.1'",
-            "port": "5432",
+            "port": "5414",
             "max_connections": "100",
             "shared_buffers": "256MB",
             "effective_cache_size": "768MB",
@@ -2623,14 +2636,14 @@
             "default_text_search_config": "'pg_catalog.english'",
             "logging_collector": "on",
             "log_directory": "'C:/Taurio/data/logs'",
-            "log_filename": "'postgresql-%Y-%m-%d.log'",
+            "log_filename": "'postgres-14-%Y-%m-%d.log'",
             "log_min_duration_statement": "1000",
             "log_statement": "'ddl'",
             "log_line_prefix": "'%t [%p]: [%l-1] user=%u,db=%d '"
           }
         },
         {
-          "path": "{{TAURIO_ROOT}}\\data\\postgresql\\pg_hba.conf",
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-14\\pg_hba.conf",
           "separator": " ",
           "comment_prefix": "#",
           "settings": {},
@@ -2645,34 +2658,34 @@
     },
     "commands": {
       "start": {
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_ctl.exe",
         "args": [
           "-D",
-          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "{{TAURIO_ROOT}}\\data\\postgres-14",
           "-l",
-          "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-14.log",
           "start"
         ],
-        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgresql",
-        "label": "Start PostgreSQL"
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-14",
+        "label": "Start PostgreSQL 14"
       },
       "stop": {
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_ctl.exe",
         "args": [
           "-D",
-          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "{{TAURIO_ROOT}}\\data\\postgres-14",
           "stop"
         ],
-        "label": "Stop PostgreSQL"
+        "label": "Stop PostgreSQL 14"
       },
       "reload": {
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\pg_ctl.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\pg_ctl.exe",
         "args": [
           "-D",
-          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "{{TAURIO_ROOT}}\\data\\postgres-14",
           "reload"
         ],
-        "label": "Reload PostgreSQL"
+        "label": "Reload PostgreSQL 14"
       },
       "quick_actions": []
     },
@@ -2682,8 +2695,8 @@
           "key": "port",
           "label": "Port",
           "type": "number",
-          "default": "5432",
-          "config_file": "{{TAURIO_ROOT}}\\data\\postgresql\\postgresql.conf",
+          "default": "5414",
+          "config_file": "{{TAURIO_ROOT}}\\data\\postgres-14\\postgresql.conf",
           "config_key": "port"
         }
       ]
@@ -2695,7 +2708,7 @@
           "type": "config-editor",
           "label": "postgresql.conf",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\data\\postgresql\\postgresql.conf",
+            "file": "{{TAURIO_ROOT}}\\data\\postgres-14\\postgresql.conf",
             "separator": " = ",
             "comment_prefix": "#"
           }
@@ -2708,7 +2721,7 @@
             "engine": "postgresql",
             "host": "127.0.0.1",
             "port_override_key": "port",
-            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\psql.exe"
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\psql.exe"
           }
         },
         {
@@ -2716,7 +2729,7 @@
           "type": "log-viewer",
           "label": "Log",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\data\\logs\\postgresql.log",
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\postgres-14.log",
             "lines": 200
           }
         }
@@ -2727,8 +2740,14 @@
         "id": "create-database",
         "label": "Create Database",
         "type": "cli",
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\createdb.exe",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-14\\bin\\createdb.exe",
         "args": [
+          "-h",
+          "127.0.0.1",
+          "-p",
+          "5414",
+          "-U",
+          "postgres",
           "{{db_name}}"
         ],
         "params": [
@@ -2741,23 +2760,1138 @@
         ],
         "confirm": true,
         "confirm_message": "Create database {{db_name}}?"
-      },
+      }
+    ],
+    "tags": [
+      "database",
+      "sql",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "nextjs",
+        "nuxt",
+        "nestjs",
+        "django",
+        "fastapi",
+        "rails",
+        "spring-boot",
+        "go-gin",
+        "go-fiber",
+        "go-echo"
+      ],
+      "companion_packages": [
+        "redis"
+      ],
+      "companion_tools": [
+        "dbeaver"
+      ]
+    }
+  },
+  {
+    "id": "postgres-15",
+    "name": "PostgreSQL 15",
+    "version": "15.x",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "postgresql",
+    "description": "PostgreSQL 15.x relational database",
+    "sources": [
       {
-        "id": "init-db",
-        "label": "Initialize Data Directory",
-        "type": "cli",
-        "command": "{{TAURIO_ROOT}}\\bin\\postgresql\\bin\\initdb.exe",
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "theseus-rs/postgresql-binaries",
+        "tag_prefix": "15.",
+        "asset_pattern": "^postgresql-\\d+\\.\\d+\\.\\d+-x86_64-pc-windows-msvc\\.zip$"
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\postgres-15",
+        "strip_top_level": true
+      }
+    ],
+    "post_install": [
+      {
+        "step_type": "run_command",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\initdb.exe",
         "args": [
           "-D",
-          "{{TAURIO_ROOT}}\\data\\postgresql",
+          "{{TAURIO_ROOT}}\\data\\postgres-15",
           "-U",
           "postgres",
           "-E",
-          "UTF8"
+          "UTF8",
+          "--auth-local=trust",
+          "--auth-host=trust"
         ],
-        "params": [],
+        "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\postgres-15\\PG_VERSION"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\postgres-15"
+      }
+    ],
+    "shims": [
+      {
+        "name": "psql15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\psql.exe"
+      },
+      {
+        "name": "pg_dump15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_dump.exe"
+      },
+      {
+        "name": "pg_restore15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_restore.exe"
+      },
+      {
+        "name": "pg_ctl15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_ctl.exe"
+      },
+      {
+        "name": "createdb15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\createdb.exe"
+      },
+      {
+        "name": "dropdb15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\dropdb.exe"
+      },
+      {
+        "name": "createuser15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\createuser.exe"
+      },
+      {
+        "name": "pg_isready15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_isready.exe"
+      },
+      {
+        "name": "initdb15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\initdb.exe"
+      },
+      {
+        "name": "vacuumdb15",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\vacuumdb.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "generic_service",
+      "app_config": {
+        "service_name": "postgres-15",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-15",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-15.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-15"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-15\\postgresql.conf",
+          "separator": " = ",
+          "comment_prefix": "#",
+          "settings": {
+            "listen_addresses": "'127.0.0.1'",
+            "port": "5415",
+            "max_connections": "100",
+            "shared_buffers": "256MB",
+            "effective_cache_size": "768MB",
+            "maintenance_work_mem": "128MB",
+            "work_mem": "16MB",
+            "wal_buffers": "16MB",
+            "checkpoint_completion_target": "0.9",
+            "random_page_cost": "1.1",
+            "effective_io_concurrency": "0",
+            "min_wal_size": "1GB",
+            "max_wal_size": "4GB",
+            "default_statistics_target": "100",
+            "log_timezone": "'UTC'",
+            "timezone": "'UTC'",
+            "datestyle": "'iso, mdy'",
+            "default_text_search_config": "'pg_catalog.english'",
+            "logging_collector": "on",
+            "log_directory": "'C:/Taurio/data/logs'",
+            "log_filename": "'postgres-15-%Y-%m-%d.log'",
+            "log_min_duration_statement": "1000",
+            "log_statement": "'ddl'",
+            "log_line_prefix": "'%t [%p]: [%l-1] user=%u,db=%d '"
+          }
+        },
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-15\\pg_hba.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {},
+          "append_lines": [
+            "# TYPE  DATABASE  USER  ADDRESS  METHOD",
+            "local   all       all             trust",
+            "host    all       all   127.0.0.1/32  trust",
+            "host    all       all   ::1/128       trust"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-15",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-15.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-15",
+        "label": "Start PostgreSQL 15"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-15",
+          "stop"
+        ],
+        "label": "Stop PostgreSQL 15"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-15",
+          "reload"
+        ],
+        "label": "Reload PostgreSQL 15"
+      },
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "5415",
+          "config_file": "{{TAURIO_ROOT}}\\data\\postgres-15\\postgresql.conf",
+          "config_key": "port"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "postgresql.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\postgres-15\\postgresql.conf",
+            "separator": " = ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "databases",
+          "type": "db-manager",
+          "label": "Databases",
+          "config": {
+            "engine": "postgresql",
+            "host": "127.0.0.1",
+            "port_override_key": "port",
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\psql.exe"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\postgres-15.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "create-database",
+        "label": "Create Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-15\\bin\\createdb.exe",
+        "args": [
+          "-h",
+          "127.0.0.1",
+          "-p",
+          "5415",
+          "-U",
+          "postgres",
+          "{{db_name}}"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
         "confirm": true,
-        "confirm_message": "Initialize PostgreSQL data directory?"
+        "confirm_message": "Create database {{db_name}}?"
+      }
+    ],
+    "tags": [
+      "database",
+      "sql",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "nextjs",
+        "nuxt",
+        "nestjs",
+        "django",
+        "fastapi",
+        "rails",
+        "spring-boot",
+        "go-gin",
+        "go-fiber",
+        "go-echo"
+      ],
+      "companion_packages": [
+        "redis"
+      ],
+      "companion_tools": [
+        "dbeaver"
+      ]
+    }
+  },
+  {
+    "id": "postgres-16",
+    "name": "PostgreSQL 16",
+    "version": "16.x",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "postgresql",
+    "description": "PostgreSQL 16.x relational database",
+    "sources": [
+      {
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "theseus-rs/postgresql-binaries",
+        "tag_prefix": "16.",
+        "asset_pattern": "^postgresql-\\d+\\.\\d+\\.\\d+-x86_64-pc-windows-msvc\\.zip$"
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\postgres-16",
+        "strip_top_level": true
+      }
+    ],
+    "post_install": [
+      {
+        "step_type": "run_command",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\initdb.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-16",
+          "-U",
+          "postgres",
+          "-E",
+          "UTF8",
+          "--auth-local=trust",
+          "--auth-host=trust"
+        ],
+        "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\postgres-16\\PG_VERSION"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\postgres-16"
+      }
+    ],
+    "shims": [
+      {
+        "name": "psql16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\psql.exe"
+      },
+      {
+        "name": "pg_dump16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_dump.exe"
+      },
+      {
+        "name": "pg_restore16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_restore.exe"
+      },
+      {
+        "name": "pg_ctl16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_ctl.exe"
+      },
+      {
+        "name": "createdb16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\createdb.exe"
+      },
+      {
+        "name": "dropdb16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\dropdb.exe"
+      },
+      {
+        "name": "createuser16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\createuser.exe"
+      },
+      {
+        "name": "pg_isready16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_isready.exe"
+      },
+      {
+        "name": "initdb16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\initdb.exe"
+      },
+      {
+        "name": "vacuumdb16",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\vacuumdb.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "generic_service",
+      "app_config": {
+        "service_name": "postgres-16",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-16",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-16.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-16"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-16\\postgresql.conf",
+          "separator": " = ",
+          "comment_prefix": "#",
+          "settings": {
+            "listen_addresses": "'127.0.0.1'",
+            "port": "5416",
+            "max_connections": "100",
+            "shared_buffers": "256MB",
+            "effective_cache_size": "768MB",
+            "maintenance_work_mem": "128MB",
+            "work_mem": "16MB",
+            "wal_buffers": "16MB",
+            "checkpoint_completion_target": "0.9",
+            "random_page_cost": "1.1",
+            "effective_io_concurrency": "0",
+            "min_wal_size": "1GB",
+            "max_wal_size": "4GB",
+            "default_statistics_target": "100",
+            "log_timezone": "'UTC'",
+            "timezone": "'UTC'",
+            "datestyle": "'iso, mdy'",
+            "default_text_search_config": "'pg_catalog.english'",
+            "logging_collector": "on",
+            "log_directory": "'C:/Taurio/data/logs'",
+            "log_filename": "'postgres-16-%Y-%m-%d.log'",
+            "log_min_duration_statement": "1000",
+            "log_statement": "'ddl'",
+            "log_line_prefix": "'%t [%p]: [%l-1] user=%u,db=%d '"
+          }
+        },
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-16\\pg_hba.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {},
+          "append_lines": [
+            "# TYPE  DATABASE  USER  ADDRESS  METHOD",
+            "local   all       all             trust",
+            "host    all       all   127.0.0.1/32  trust",
+            "host    all       all   ::1/128       trust"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-16",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-16.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-16",
+        "label": "Start PostgreSQL 16"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-16",
+          "stop"
+        ],
+        "label": "Stop PostgreSQL 16"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-16",
+          "reload"
+        ],
+        "label": "Reload PostgreSQL 16"
+      },
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "5416",
+          "config_file": "{{TAURIO_ROOT}}\\data\\postgres-16\\postgresql.conf",
+          "config_key": "port"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "postgresql.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\postgres-16\\postgresql.conf",
+            "separator": " = ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "databases",
+          "type": "db-manager",
+          "label": "Databases",
+          "config": {
+            "engine": "postgresql",
+            "host": "127.0.0.1",
+            "port_override_key": "port",
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\psql.exe"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\postgres-16.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "create-database",
+        "label": "Create Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-16\\bin\\createdb.exe",
+        "args": [
+          "-h",
+          "127.0.0.1",
+          "-p",
+          "5416",
+          "-U",
+          "postgres",
+          "{{db_name}}"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Create database {{db_name}}?"
+      }
+    ],
+    "tags": [
+      "database",
+      "sql",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "nextjs",
+        "nuxt",
+        "nestjs",
+        "django",
+        "fastapi",
+        "rails",
+        "spring-boot",
+        "go-gin",
+        "go-fiber",
+        "go-echo"
+      ],
+      "companion_packages": [
+        "redis"
+      ],
+      "companion_tools": [
+        "dbeaver"
+      ]
+    }
+  },
+  {
+    "id": "postgres-17",
+    "name": "PostgreSQL 17",
+    "version": "17.x",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "postgresql",
+    "description": "PostgreSQL 17.x relational database",
+    "sources": [
+      {
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "theseus-rs/postgresql-binaries",
+        "tag_prefix": "17.",
+        "asset_pattern": "^postgresql-\\d+\\.\\d+\\.\\d+-x86_64-pc-windows-msvc\\.zip$"
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\postgres-17",
+        "strip_top_level": true
+      }
+    ],
+    "post_install": [
+      {
+        "step_type": "run_command",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\initdb.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-17",
+          "-U",
+          "postgres",
+          "-E",
+          "UTF8",
+          "--auth-local=trust",
+          "--auth-host=trust"
+        ],
+        "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\postgres-17\\PG_VERSION"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\postgres-17"
+      }
+    ],
+    "shims": [
+      {
+        "name": "psql17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\psql.exe"
+      },
+      {
+        "name": "pg_dump17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_dump.exe"
+      },
+      {
+        "name": "pg_restore17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_restore.exe"
+      },
+      {
+        "name": "pg_ctl17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_ctl.exe"
+      },
+      {
+        "name": "createdb17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\createdb.exe"
+      },
+      {
+        "name": "dropdb17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\dropdb.exe"
+      },
+      {
+        "name": "createuser17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\createuser.exe"
+      },
+      {
+        "name": "pg_isready17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_isready.exe"
+      },
+      {
+        "name": "initdb17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\initdb.exe"
+      },
+      {
+        "name": "vacuumdb17",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\vacuumdb.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "generic_service",
+      "app_config": {
+        "service_name": "postgres-17",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-17",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-17.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-17"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-17\\postgresql.conf",
+          "separator": " = ",
+          "comment_prefix": "#",
+          "settings": {
+            "listen_addresses": "'127.0.0.1'",
+            "port": "5417",
+            "max_connections": "100",
+            "shared_buffers": "256MB",
+            "effective_cache_size": "768MB",
+            "maintenance_work_mem": "128MB",
+            "work_mem": "16MB",
+            "wal_buffers": "16MB",
+            "checkpoint_completion_target": "0.9",
+            "random_page_cost": "1.1",
+            "effective_io_concurrency": "0",
+            "min_wal_size": "1GB",
+            "max_wal_size": "4GB",
+            "default_statistics_target": "100",
+            "log_timezone": "'UTC'",
+            "timezone": "'UTC'",
+            "datestyle": "'iso, mdy'",
+            "default_text_search_config": "'pg_catalog.english'",
+            "logging_collector": "on",
+            "log_directory": "'C:/Taurio/data/logs'",
+            "log_filename": "'postgres-17-%Y-%m-%d.log'",
+            "log_min_duration_statement": "1000",
+            "log_statement": "'ddl'",
+            "log_line_prefix": "'%t [%p]: [%l-1] user=%u,db=%d '"
+          }
+        },
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-17\\pg_hba.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {},
+          "append_lines": [
+            "# TYPE  DATABASE  USER  ADDRESS  METHOD",
+            "local   all       all             trust",
+            "host    all       all   127.0.0.1/32  trust",
+            "host    all       all   ::1/128       trust"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-17",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-17.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-17",
+        "label": "Start PostgreSQL 17"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-17",
+          "stop"
+        ],
+        "label": "Stop PostgreSQL 17"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-17",
+          "reload"
+        ],
+        "label": "Reload PostgreSQL 17"
+      },
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "5417",
+          "config_file": "{{TAURIO_ROOT}}\\data\\postgres-17\\postgresql.conf",
+          "config_key": "port"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "postgresql.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\postgres-17\\postgresql.conf",
+            "separator": " = ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "databases",
+          "type": "db-manager",
+          "label": "Databases",
+          "config": {
+            "engine": "postgresql",
+            "host": "127.0.0.1",
+            "port_override_key": "port",
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\psql.exe"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\postgres-17.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "create-database",
+        "label": "Create Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-17\\bin\\createdb.exe",
+        "args": [
+          "-h",
+          "127.0.0.1",
+          "-p",
+          "5417",
+          "-U",
+          "postgres",
+          "{{db_name}}"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Create database {{db_name}}?"
+      }
+    ],
+    "tags": [
+      "database",
+      "sql",
+      "backend"
+    ],
+    "intelligence": {
+      "recommend_for": [
+        "nextjs",
+        "nuxt",
+        "nestjs",
+        "django",
+        "fastapi",
+        "rails",
+        "spring-boot",
+        "go-gin",
+        "go-fiber",
+        "go-echo"
+      ],
+      "companion_packages": [
+        "redis"
+      ],
+      "companion_tools": [
+        "dbeaver"
+      ]
+    }
+  },
+  {
+    "id": "postgres-18",
+    "name": "PostgreSQL 18",
+    "version": "18.x",
+    "category": "service",
+    "preselect_default": true,
+    "icon": "postgresql",
+    "description": "PostgreSQL 18.x relational database",
+    "sources": [
+      {
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "theseus-rs/postgresql-binaries",
+        "tag_prefix": "18.",
+        "asset_pattern": "^postgresql-\\d+\\.\\d+\\.\\d+-x86_64-pc-windows-msvc\\.zip$"
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\postgres-18",
+        "strip_top_level": true
+      }
+    ],
+    "post_install": [
+      {
+        "step_type": "run_command",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\initdb.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-18",
+          "-U",
+          "postgres",
+          "-E",
+          "UTF8",
+          "--auth-local=trust",
+          "--auth-host=trust"
+        ],
+        "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\postgres-18\\PG_VERSION"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\postgres-18"
+      }
+    ],
+    "shims": [
+      {
+        "name": "psql18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\psql.exe"
+      },
+      {
+        "name": "pg_dump18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_dump.exe"
+      },
+      {
+        "name": "pg_restore18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_restore.exe"
+      },
+      {
+        "name": "pg_ctl18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_ctl.exe"
+      },
+      {
+        "name": "createdb18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\createdb.exe"
+      },
+      {
+        "name": "dropdb18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\dropdb.exe"
+      },
+      {
+        "name": "createuser18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\createuser.exe"
+      },
+      {
+        "name": "pg_isready18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_isready.exe"
+      },
+      {
+        "name": "initdb18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\initdb.exe"
+      },
+      {
+        "name": "vacuumdb18",
+        "target": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\vacuumdb.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "generic_service",
+      "app_config": {
+        "service_name": "postgres-18",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-18",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-18.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-18"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-18\\postgresql.conf",
+          "separator": " = ",
+          "comment_prefix": "#",
+          "settings": {
+            "listen_addresses": "'127.0.0.1'",
+            "port": "5418",
+            "max_connections": "100",
+            "shared_buffers": "256MB",
+            "effective_cache_size": "768MB",
+            "maintenance_work_mem": "128MB",
+            "work_mem": "16MB",
+            "wal_buffers": "16MB",
+            "checkpoint_completion_target": "0.9",
+            "random_page_cost": "1.1",
+            "effective_io_concurrency": "0",
+            "min_wal_size": "1GB",
+            "max_wal_size": "4GB",
+            "default_statistics_target": "100",
+            "log_timezone": "'UTC'",
+            "timezone": "'UTC'",
+            "datestyle": "'iso, mdy'",
+            "default_text_search_config": "'pg_catalog.english'",
+            "logging_collector": "on",
+            "log_directory": "'C:/Taurio/data/logs'",
+            "log_filename": "'postgres-18-%Y-%m-%d.log'",
+            "log_min_duration_statement": "1000",
+            "log_statement": "'ddl'",
+            "log_line_prefix": "'%t [%p]: [%l-1] user=%u,db=%d '"
+          }
+        },
+        {
+          "path": "{{TAURIO_ROOT}}\\data\\postgres-18\\pg_hba.conf",
+          "separator": " ",
+          "comment_prefix": "#",
+          "settings": {},
+          "append_lines": [
+            "# TYPE  DATABASE  USER  ADDRESS  METHOD",
+            "local   all       all             trust",
+            "host    all       all   127.0.0.1/32  trust",
+            "host    all       all   ::1/128       trust"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-18",
+          "-l",
+          "{{TAURIO_ROOT}}\\data\\logs\\postgres-18.log",
+          "start"
+        ],
+        "working_dir": "{{TAURIO_ROOT}}\\bin\\postgres-18",
+        "label": "Start PostgreSQL 18"
+      },
+      "stop": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-18",
+          "stop"
+        ],
+        "label": "Stop PostgreSQL 18"
+      },
+      "reload": {
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\pg_ctl.exe",
+        "args": [
+          "-D",
+          "{{TAURIO_ROOT}}\\data\\postgres-18",
+          "reload"
+        ],
+        "label": "Reload PostgreSQL 18"
+      },
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": "5418",
+          "config_file": "{{TAURIO_ROOT}}\\data\\postgres-18\\postgresql.conf",
+          "config_key": "port"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "postgresql.conf",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\postgres-18\\postgresql.conf",
+            "separator": " = ",
+            "comment_prefix": "#"
+          }
+        },
+        {
+          "id": "databases",
+          "type": "db-manager",
+          "label": "Databases",
+          "config": {
+            "engine": "postgresql",
+            "host": "127.0.0.1",
+            "port_override_key": "port",
+            "cli_path": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\psql.exe"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\postgres-18.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [
+      {
+        "id": "create-database",
+        "label": "Create Database",
+        "type": "cli",
+        "command": "{{TAURIO_ROOT}}\\bin\\postgres-18\\bin\\createdb.exe",
+        "args": [
+          "-h",
+          "127.0.0.1",
+          "-p",
+          "5418",
+          "-U",
+          "postgres",
+          "{{db_name}}"
+        ],
+        "params": [
+          {
+            "name": "db_name",
+            "label": "Database Name",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "confirm": true,
+        "confirm_message": "Create database {{db_name}}?"
       }
     ],
     "tags": [
