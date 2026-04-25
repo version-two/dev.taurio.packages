@@ -1821,7 +1821,7 @@
         "step_type": "run_command",
         "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
         "args": [
-          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "--defaults-file={{TAURIO_ROOT}}\\config\\mysql\\my.ini",
           "--initialize-insecure"
         ],
         "skip_if_path_exists": "{{TAURIO_ROOT}}\\data\\mysql\\mysql"
@@ -1873,24 +1873,27 @@
         "service_name": "mysql",
         "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
         "args": [
-          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "--defaults-file={{TAURIO_ROOT}}\\config\\mysql\\my.ini",
           "--console"
         ],
         "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "path": "{{TAURIO_ROOT}}\\config\\mysql\\my.ini",
           "separator": "=",
           "comment_prefix": "#",
+          "header_lines": [
+            "[mysqld]"
+          ],
           "settings": {
-            "basedir": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64",
-            "datadir": "{{TAURIO_ROOT}}\\data\\mysql",
+            "basedir": "{{TAURIO_ROOT}}/bin/mysql/mysql-8.0.41-winx64",
+            "datadir": "{{TAURIO_ROOT}}/data/mysql",
             "port": "3306",
-            "socket": "{{TAURIO_ROOT}}\\tmp\\mysql.sock",
-            "log_error": "{{TAURIO_ROOT}}\\data\\logs\\mysql-error.log",
+            "socket": "{{TAURIO_ROOT}}/tmp/mysql.sock",
+            "log_error": "{{TAURIO_ROOT}}/data/logs/mysql-error.log",
             "slow_query_log": "1",
-            "slow_query_log_file": "{{TAURIO_ROOT}}\\data\\logs\\mysql-slow.log",
+            "slow_query_log_file": "{{TAURIO_ROOT}}/data/logs/mysql-slow.log",
             "long_query_time": "2",
             "max_connections": "150",
             "max_allowed_packet": "256M",
@@ -1914,10 +1917,7 @@
             "collation-server": "utf8mb4_unicode_ci",
             "default_authentication_plugin": "mysql_native_password",
             "skip-name-resolve": "1"
-          },
-          "append_lines": [
-            "[mysqld]"
-          ]
+          }
         }
       ]
     },
@@ -1925,7 +1925,7 @@
       "start": {
         "command": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64\\bin\\mysqld.exe",
         "args": [
-          "--defaults-file={{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "--defaults-file={{TAURIO_ROOT}}\\config\\mysql\\my.ini",
           "--console"
         ],
         "working_dir": "{{TAURIO_ROOT}}\\bin\\mysql\\mysql-8.0.41-winx64",
@@ -1969,7 +1969,7 @@
           "label": "Port",
           "type": "number",
           "default": "3306",
-          "config_file": "{{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+          "config_file": "{{TAURIO_ROOT}}\\config\\mysql\\my.ini",
           "config_key": "port"
         }
       ]
@@ -1981,7 +1981,7 @@
           "type": "config-editor",
           "label": "my.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\data\\mysql\\my.ini",
+            "file": "{{TAURIO_ROOT}}\\config\\mysql\\my.ini",
             "separator": "=",
             "comment_prefix": "#"
           }
@@ -2157,24 +2157,27 @@
         "service_name": "mariadb",
         "command": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
         "args": [
-          "--defaults-file={{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "--defaults-file={{TAURIO_ROOT}}\\config\\mariadb\\my.ini",
           "--console"
         ],
         "working_dir": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64"
       },
       "config_files": [
         {
-          "path": "{{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "path": "{{TAURIO_ROOT}}\\config\\mariadb\\my.ini",
           "separator": "=",
           "comment_prefix": "#",
+          "header_lines": [
+            "[mysqld]"
+          ],
           "settings": {
-            "basedir": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64",
-            "datadir": "{{TAURIO_ROOT}}\\data\\mariadb",
+            "basedir": "{{TAURIO_ROOT}}/bin/mariadb/mariadb-11.7.2-winx64",
+            "datadir": "{{TAURIO_ROOT}}/data/mariadb",
             "port": "3307",
-            "socket": "{{TAURIO_ROOT}}\\tmp\\mariadb.sock",
-            "log_error": "{{TAURIO_ROOT}}\\data\\logs\\mariadb-error.log",
+            "socket": "{{TAURIO_ROOT}}/tmp/mariadb.sock",
+            "log_error": "{{TAURIO_ROOT}}/data/logs/mariadb-error.log",
             "slow_query_log": "1",
-            "slow_query_log_file": "{{TAURIO_ROOT}}\\data\\logs\\mariadb-slow.log",
+            "slow_query_log_file": "{{TAURIO_ROOT}}/data/logs/mariadb-slow.log",
             "long_query_time": "2",
             "max_connections": "150",
             "max_allowed_packet": "256M",
@@ -2195,10 +2198,7 @@
             "character-set-server": "utf8mb4",
             "collation-server": "utf8mb4_unicode_ci",
             "skip-name-resolve": "1"
-          },
-          "append_lines": [
-            "[mysqld]"
-          ]
+          }
         }
       ]
     },
@@ -2206,7 +2206,7 @@
       "start": {
         "command": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64\\bin\\mysqld.exe",
         "args": [
-          "--defaults-file={{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "--defaults-file={{TAURIO_ROOT}}\\config\\mariadb\\my.ini",
           "--console"
         ],
         "working_dir": "{{TAURIO_ROOT}}\\bin\\mariadb\\mariadb-11.7.2-winx64",
@@ -2231,7 +2231,7 @@
           "label": "Port",
           "type": "number",
           "default": "3307",
-          "config_file": "{{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+          "config_file": "{{TAURIO_ROOT}}\\config\\mariadb\\my.ini",
           "config_key": "port"
         }
       ]
@@ -2243,7 +2243,7 @@
           "type": "config-editor",
           "label": "my.ini",
           "config": {
-            "file": "{{TAURIO_ROOT}}\\data\\mariadb\\my.ini",
+            "file": "{{TAURIO_ROOT}}\\config\\mariadb\\my.ini",
             "separator": "=",
             "comment_prefix": "#"
           }
