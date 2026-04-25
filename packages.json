@@ -56,6 +56,11 @@
     ],
     "install": [
       {
+        "step_type": "ensure_vc_redist",
+        "min_version": "14.44",
+        "arch": "x64"
+      },
+      {
         "step_type": "extract",
         "from": "source:0",
         "to": "{{TAURIO_ROOT}}\\bin\\php\\8.3"
@@ -289,6 +294,11 @@
     ],
     "install": [
       {
+        "step_type": "ensure_vc_redist",
+        "min_version": "14.44",
+        "arch": "x64"
+      },
+      {
         "step_type": "extract",
         "from": "source:0",
         "to": "{{TAURIO_ROOT}}\\bin\\php\\8.4"
@@ -501,6 +511,11 @@
       }
     ],
     "install": [
+      {
+        "step_type": "ensure_vc_redist",
+        "min_version": "14.44",
+        "arch": "x64"
+      },
       {
         "step_type": "extract",
         "from": "source:0",
@@ -717,12 +732,12 @@
   },
   {
     "id": "php-8.6",
-    "name": "PHP 8.6 (dev / nightly – unstable)",
+    "name": "PHP 8.6 (dev / nightly \u2013 unstable)",
     "version": "8.6.0-dev",
     "category": "service",
     "preselect_default": false,
     "icon": "php",
-    "description": "PHP 8.6 development snapshot. No stable release yet (8.6.0 GA expected November 2026). Do not use for production projects – APIs and behaviour may change before release.",
+    "description": "PHP 8.6 development snapshot. No stable release yet (8.6.0 GA expected November 2026). Do not use for production projects \u2013 APIs and behaviour may change before release.",
     "sources": [
       {
         "source_type": "github_release_asset",
@@ -734,6 +749,11 @@
       }
     ],
     "install": [
+      {
+        "step_type": "ensure_vc_redist",
+        "min_version": "14.44",
+        "arch": "x64"
+      },
       {
         "step_type": "extract",
         "from": "source:0",
@@ -929,6 +949,11 @@
       }
     ],
     "install": [
+      {
+        "step_type": "ensure_vc_redist",
+        "min_version": "14.44",
+        "arch": "x64"
+      },
       {
         "step_type": "extract",
         "from": "source:0",
@@ -1162,6 +1187,11 @@
       }
     ],
     "install": [
+      {
+        "step_type": "ensure_vc_redist",
+        "min_version": "14.44",
+        "arch": "x64"
+      },
       {
         "step_type": "extract",
         "from": "source:0",
