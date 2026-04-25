@@ -716,6 +716,201 @@
     ]
   },
   {
+    "id": "php-8.6",
+    "name": "PHP 8.6 (dev / nightly – unstable)",
+    "version": "8.6.0-dev",
+    "category": "service",
+    "preselect_default": false,
+    "icon": "php",
+    "description": "PHP 8.6 development snapshot. No stable release yet (8.6.0 GA expected November 2026). Do not use for production projects – APIs and behaviour may change before release.",
+    "sources": [
+      {
+        "source_type": "github_release_asset",
+        "url": null,
+        "sha256": null,
+        "repo": "shivammathur/php-builder-windows",
+        "tag": "php8.6",
+        "asset_pattern": "^php-\\d+\\.\\d+\\.\\d+-dev-nts-Win32-vs17-x64\\.zip$"
+      }
+    ],
+    "install": [
+      {
+        "step_type": "extract",
+        "from": "source:0",
+        "to": "{{TAURIO_ROOT}}\\bin\\php\\8.6"
+      }
+    ],
+    "uninstall": [
+      {
+        "step_type": "remove_path",
+        "path": "{{TAURIO_ROOT}}\\bin\\php\\8.6"
+      }
+    ],
+    "shims": [
+      {
+        "name": "php8.6",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\php.exe"
+      },
+      {
+        "name": "php-cgi8.6",
+        "target": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\php-cgi.exe"
+      }
+    ],
+    "config": {
+      "tool_type": "php_runtime",
+      "app_config": {
+        "version": "8.6",
+        "php_path": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\php.exe",
+        "php_cgi_path": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\php-cgi.exe",
+        "fcgi_port": 9005,
+        "fcgi_mode": "pool"
+      },
+      "config_files": [
+        {
+          "path": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\php.ini",
+          "separator": "=",
+          "comment_prefix": ";",
+          "settings": {
+            "error_reporting": "E_ALL",
+            "display_errors": "On",
+            "display_startup_errors": "On",
+            "log_errors": "On",
+            "error_log": "{{TAURIO_ROOT}}\\data\\logs\\php86-error.log",
+            "memory_limit": "512M",
+            "max_execution_time": "300",
+            "max_input_time": "300",
+            "max_input_vars": "10000",
+            "post_max_size": "256M",
+            "upload_max_filesize": "256M",
+            "max_file_uploads": "50",
+            "date.timezone": "UTC",
+            "realpath_cache_size": "4096K",
+            "realpath_cache_ttl": "600",
+            "opcache.enable": "1",
+            "opcache.memory_consumption": "256",
+            "opcache.interned_strings_buffer": "16",
+            "opcache.max_accelerated_files": "20000",
+            "opcache.validate_timestamps": "1",
+            "opcache.revalidate_freq": "0",
+            "opcache.save_comments": "1",
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\ext",
+            "cgi.fix_pathinfo": "1",
+            "session.save_handler": "files",
+            "session.gc_maxlifetime": "1440"
+          },
+          "install_overrides": {
+            "extension_dir": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\ext",
+            "date.timezone": "UTC",
+            "opcache.enable": "1"
+          },
+          "append_lines": [
+            "extension=bz2",
+            "extension=curl",
+            "extension=fileinfo",
+            "extension=gd",
+            "extension=gettext",
+            "extension=intl",
+            "extension=mbstring",
+            "extension=exif",
+            "extension=mysqli",
+            "extension=openssl",
+            "extension=pdo_mysql",
+            "extension=pdo_pgsql",
+            "extension=pdo_sqlite",
+            "extension=pgsql",
+            "extension=soap",
+            "extension=sodium",
+            "extension=sqlite3",
+            "extension=zip"
+          ]
+        }
+      ]
+    },
+    "commands": {
+      "start": {
+        "command": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\php-cgi.exe",
+        "args": [
+          "-b",
+          "127.0.0.1:9005"
+        ],
+        "label": "Start PHP 8.6 FastCGI (dev)"
+      },
+      "stop": null,
+      "reload": null,
+      "quick_actions": []
+    },
+    "overrides": {
+      "fields": [
+        {
+          "key": "fcgi_port",
+          "label": "FastCGI Port",
+          "type": "number",
+          "default": "9005"
+        },
+        {
+          "key": "fcgi_mode",
+          "label": "FastCGI Mode",
+          "type": "select:pool=Pool (multi-worker),fcgi=Single process,off=Off (CLI only)",
+          "default": "pool"
+        }
+      ]
+    },
+    "ui": {
+      "panels": [
+        {
+          "id": "extensions",
+          "type": "php-extensions",
+          "label": "Extensions"
+        },
+        {
+          "id": "settings",
+          "type": "php-settings",
+          "label": "Settings"
+        },
+        {
+          "id": "xdebug",
+          "type": "php-xdebug",
+          "label": "Xdebug"
+        },
+        {
+          "id": "config",
+          "type": "config-editor",
+          "label": "php.ini",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\bin\\php\\8.6\\php.ini",
+            "separator": "=",
+            "comment_prefix": ";"
+          }
+        },
+        {
+          "id": "logs",
+          "type": "log-viewer",
+          "label": "Error Log",
+          "config": {
+            "file": "{{TAURIO_ROOT}}\\data\\logs\\php86-error.log",
+            "lines": 200
+          }
+        }
+      ]
+    },
+    "scripts": [],
+    "tags": [
+      "php",
+      "runtime",
+      "backend",
+      "preview",
+      "unstable"
+    ],
+    "intelligence": {
+      "recommend_for": [],
+      "companion_packages": [],
+      "companion_tools": []
+    },
+    "dependencies": [
+      "taurio-fpm"
+    ]
+  },
+  {
     "id": "php-7.4",
     "name": "PHP 7.4 (NTS x64)",
     "version": "7.4.33",
