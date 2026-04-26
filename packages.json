@@ -1485,7 +1485,9 @@
         "command": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\nginx.exe",
         "args": [
           "-c",
-          "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\conf\\nginx.conf"
+          "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4\\conf\\nginx.conf",
+          "-g",
+          "daemon off;"
         ],
         "working_dir": "{{TAURIO_ROOT}}\\bin\\nginx\\nginx-1.27.4",
         "label": "Start Nginx"
@@ -5854,9 +5856,7 @@
     "commands": {
       "start": {
         "command": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3\\sbin\\rabbitmq-server.bat",
-        "args": [
-          "-detached"
-        ],
+        "args": [],
         "working_dir": "{{TAURIO_ROOT}}\\bin\\rabbitmq\\rabbitmq_server-4.2.3",
         "label": "Start RabbitMQ"
       },
